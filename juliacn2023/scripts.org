@@ -1,0 +1,56 @@
+#+TITLE: Presentation Scripte
+#+AUTHOR: Yusheng Zhao
+
+
+
+* Title
+Good [morning/afternoon/evening], everyone. Thank you for joining me at the
+JuliaCN Winter Meetup. I'm Yusheng Zhao, currently affiliated with HKUST(GZ),
+and my research primarily focuses on quantum information and quantum error
+correction.
+
+Today, I'm excited to introduce you to 'ZXCalculus.jl: ZX-calculus in Julia'—a
+toolkit designed as a starter kit in graphical language for quantum computing.
+This presentation will not just be an introduction to ZX-calculus but also a
+journey through its practical applications, especially in the context of Julia.
+
+This summer, I had the opportunity to contribute to the development of the
+ZXCalculus.jl package, and I'm here to share with you the progress, insights,
+and potential of this tool in quantum computing research and applications.
+
+* Outline
+Let's take a moment to overview what we'll cover today. Our journey begins with
+an introduction to ZX-Calculus, exploring its foundational role in quantum
+computing. We'll then bridge into how Julia, a powerful language for technical
+computing, intertwines with ZX-Calculus through the ZXCalculus.jl package.
+
+I'll take you through a deep dive into ZXCalculus.jl, discussing its key
+features, capabilities, and my personal journey in contributing to its
+development. Following this, we'll explore real-world applications of
+ZX-Calculus in quantum information and error correction, bringing theory into
+practical scenarios.
+
+The highlight of our session will be a hands-on demonstration where I'll convert
+theoretical concepts into executable Julia code using ZXCalculus.jl. Finally,
+we'll wrap up with a look at the future directions of ZXCalculus.jl and open the
+floor for your questions and discussions.
+
+Now, let's embark on this exciting journey through the world of quantum
+computing with ZXCalculus.jl.
+
+* Package Introduction
+Before diving into the technicalities of ZXCalculus.jl, it's important to
+acknowledge its origins. ZXCalculus.jl was initially developed as a
+collaborative effort between Dr. Chen Zhao and Dr. Xiu-zhe Roger Luo. At the
+time, Dr. Zhao was a Ph.D. student at the Chinese Academy of Sciences Institute
+of Mathematics and Systems Science, while Roger Luo was pursuing his Ph.D. at
+the University of Waterloo.
+
+Their collaboration was part of the Google Summer of Code, a global program that
+offers student developers stipends to write code for various open-source
+software projects. This initiative laid the groundwork for what ZXCalculus.jl is
+today, a testament to the international and collaborative nature of software
+development in quantum computing.
+
+With this background in mind, let's delve deeper into the functionalities and
+features of ZXCalculus.jl.

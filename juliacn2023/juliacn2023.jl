@@ -8,43 +8,63 @@ using InteractiveUtils
 begin
     using Pkg; Pkg.activate(".")
 	using Revise
-    using PlutoUI, BenchmarkTools, Random
+    using PlutoUI, PlutoTeachingTools
+	using BenchmarkTools, Random
     using ZXCalculus, ZXCalculus.ZX, YaoPlots, Yao
 end
 
 
-# ╔═╡ 7106a0c4-389a-4e8e-8f43-77fdb5458913
-html"<button onclick='present()'>present</button>"
+# ╔═╡ 0f6ad1ea-39b2-4197-8f00-5afa55839be2
+ChooseDisplayMode()
 
-# ╔═╡ 7cba7495-d9be-4031-8e32-54384d8e8e5e
-md"#Self Introduction
-What's my name
-What's my affliation
-I will talk about ZXCalculus.jl
-"
+# ╔═╡ fe1cc35d-4372-404d-bacb-bf96e7423e23
+html"""
+	<h1 style="text-align:center">
+		ZXCalculus.jl: ZX-calculus in Julia
+	</h1>
+	<div style="text-align:center">
+		<p style="font-weight:bold; font-size: 35px; font-variant: small-caps; margin: 0px">
+			A Starter Kit in Graphical Language
+		</p>
+		<p style="font-size: 30px; font-variant: small-caps; margin: 0px">
+			Yusheng Zhao
+		</p>
+        <p style="font-size: 14px; font-variant: small-caps; margin: 0px">
+            Hong Kong University of Science and Technology(GuangZhou)
+        </p>
+		<p style="font-size: 20px;">
+			JuliaCN Winter Meetup, Shenzhen, 2023/12/09
+		</p>
+	</div>
+"""
 
-# ╔═╡ 1eeb564c-7dd8-4565-9d63-9fad8c8e3a6b
-md"#Overview
-Talk about ZXCalculus and its applications
-Use package as example
-"
+# ╔═╡ 7636ca8e-04a8-443a-a7f6-e7fbd70ebce6
+TableOfContents(title="Outline",aside=false)
+
+# ╔═╡ 3b6c88e7-6d8a-46a8-a3fb-b396c611aa09
+begin
+	urlcz = "https://avatars.githubusercontent.com/u/50411747?v=4"
+	pathcz = "figs/ChenZhao44.jpeg"
+end;
+
+# ╔═╡ bd7c63de-cb71-41d2-ae99-8b8807513f25
+begin
+	urlrl = "https://twitter.com/rogerluorl18/photo"
+	pathrl = "figs/RogerLuo.jpg"
+end;
 
 # ╔═╡ aa055b7a-ba85-448e-8031-12ec3979e953
-md"#Package Introduction
-What's the history of this package
-Dr. Chen Zhao, Roger Luo
-Entering me: 2023 summer time
-......
-
-
-
-"
+md"""# Package Introduction
+|Dr. [Chen Zhao](https://github.com/ChenZhao44) |[Xiu-zhe (Roger) Luo](https://github.com/Roger-luo)|
+|--------------|------------------|
+|$(RobustLocalResource(urlcz, pathcz,:width=>200, :alt=>"Dr. Chen Zhao", cache=false))|$(RobustLocalResource(urlrl, pathrl, :width=>200, :alt=>"Xiuzhe (Roger) Luo", cache=false))|
+"""
 
 # ╔═╡ 87538743-fed0-4db1-bc6b-a2f76b68cd5a
-md"#Brief Introduction to ZXCalculus
+md"""# Brief Introduction to ZXCalculus
 What is it, basic elements ...
 
-"
+"""
 
 # ╔═╡ 539f7688-6680-4298-b695-447019ebe4af
 md"#Applications of ZXCalculus
@@ -85,14 +105,17 @@ md"## Others
 
 
 # ╔═╡ d516b5ed-69f9-41d7-8627-7df14a740e7c
-
+md"""# Thank you!
+"""
 
 # ╔═╡ Cell order:
-# ╟─7106a0c4-389a-4e8e-8f43-77fdb5458913
-# ╠═5b60b904-918c-11ee-2d1b-c382c891cbb8
-# ╠═7cba7495-d9be-4031-8e32-54384d8e8e5e
-# ╠═1eeb564c-7dd8-4565-9d63-9fad8c8e3a6b
-# ╠═aa055b7a-ba85-448e-8031-12ec3979e953
+# ╟─5b60b904-918c-11ee-2d1b-c382c891cbb8
+# ╟─0f6ad1ea-39b2-4197-8f00-5afa55839be2
+# ╟─fe1cc35d-4372-404d-bacb-bf96e7423e23
+# ╟─7636ca8e-04a8-443a-a7f6-e7fbd70ebce6
+# ╟─3b6c88e7-6d8a-46a8-a3fb-b396c611aa09
+# ╟─bd7c63de-cb71-41d2-ae99-8b8807513f25
+# ╟─aa055b7a-ba85-448e-8031-12ec3979e953
 # ╠═87538743-fed0-4db1-bc6b-a2f76b68cd5a
 # ╠═539f7688-6680-4298-b695-447019ebe4af
 # ╠═9b9e1445-be58-42f1-b76e-13e644438be9
