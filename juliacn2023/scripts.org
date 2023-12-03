@@ -54,3 +54,30 @@ development in quantum computing.
 
 With this background in mind, let's delve deeper into the functionalities and
 features of ZXCalculus.jl.
+
+
+* Introduction to ZX-calculus
+In the next few slides. I want to introduce the basics of ZXCalculus. On the
+first page, I will give the definition of ZXCalculus as graphical language for
+tensor network.
+
+** ZX-calculus: the definition
+ZX-Calculus is not just a theoretical construct; it's a practical graphical
+language specifically designed for tensor networks in quantum computing. To
+fully grasp ZX-Calculus, it's essential to understand its two primary
+components.
+
+First, we have the ZX-Diagram. This is the visual aspect of ZX-Calculus, where
+tensor networks are represented in a graphical form. It's through these diagrams
+that we can intuitively grasp the complex relationships and operations within a
+tensor network.
+
+The second key component is the Rewrite Rules. These rules are what make
+ZX-Diagrams dynamic and powerful. They allow us to transform one diagram into
+another, representing different states or operations within the quantum
+computing framework. It's these rules that enable us to perform complex
+calculations and manipulations visually, making ZX-Calculus an invaluable tool
+in the realm of quantum computing
+
+Now that we understand the foundational components of ZX-Calculus, let's delve
+deeper into ZX-Diagrams and see how they visually represent tensor networks

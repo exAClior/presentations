@@ -60,9 +60,26 @@ md"""# Package Introduction
 |$(RobustLocalResource(urlcz, pathcz,:width=>200, :alt=>"Dr. Chen Zhao", cache=false))|$(RobustLocalResource(urlrl, pathrl, :width=>200, :alt=>"Xiuzhe (Roger) Luo", cache=false))|
 """
 
+# ╔═╡ 166384c5-b083-4792-a397-2f9495a3bc7b
+begin
+	urlintro = "https://chenzhao44.github.io/assets/blog_res/ZX/QC_to_ZX.png"
+	pathintro= "figs/zxintro.png"
+end;
+
 # ╔═╡ 87538743-fed0-4db1-bc6b-a2f76b68cd5a
-md"""# Brief Introduction to ZXCalculus
-What is it, basic elements ...
+md"""# Introduction to ZXCalculus
+## ZX-calculus
+- Graphical Language for Tensor Network
+- Components of the language:
+   1) ZX-Diagram
+   2) Rewrite rules
+$(RobustLocalResource(urlintro, pathintro,:width=>400, :alt=>"Circ2Diag", cache=false))
+"""
+
+# ╔═╡ 9cd983bf-063c-414e-8bd9-5cb66a3524a1
+md"""## ZX-Diagram
+- ZX-Diagram: Visualization of Tensor Networks
+- Contraction by graph rewrite
 
 """
 
@@ -116,7 +133,9 @@ md"""# Thank you!
 # ╟─3b6c88e7-6d8a-46a8-a3fb-b396c611aa09
 # ╟─bd7c63de-cb71-41d2-ae99-8b8807513f25
 # ╟─aa055b7a-ba85-448e-8031-12ec3979e953
+# ╟─166384c5-b083-4792-a397-2f9495a3bc7b
 # ╠═87538743-fed0-4db1-bc6b-a2f76b68cd5a
+# ╠═9cd983bf-063c-414e-8bd9-5cb66a3524a1
 # ╠═539f7688-6680-4298-b695-447019ebe4af
 # ╠═9b9e1445-be58-42f1-b76e-13e644438be9
 # ╠═0a82ec5e-13e2-4635-a34f-7fd89a6f411e
