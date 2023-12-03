@@ -73,13 +73,26 @@ md"""# Introduction to ZXCalculus
 - Components of the language:
    1) ZX-Diagram
    2) Rewrite rules
-$(RobustLocalResource(urlintro, pathintro,:width=>400, :alt=>"Circ2Diag", cache=false))
+$(RobustLocalResource(urlintro, pathintro,:width=>800, :alt=>"Circ2Diag", cache=false))
 """
 
+# ╔═╡ 706f074a-95ea-4d3a-8ef6-b355f1723a01
+begin
+	urlspds = ""
+	pathspds = "figs/spiders.png"
+end;
+
 # ╔═╡ 9cd983bf-063c-414e-8bd9-5cb66a3524a1
-md"""## ZX-Diagram
-- ZX-Diagram: Visualization of Tensor Networks
-- Contraction by graph rewrite
+md"""## ZX-Diagrams
+- Graphical Representations of Tensor Networks
+- Tensors Parameterized by:
+  1) Number of Legs
+  2) Angles of Rotation (where applicable)
+$(RobustLocalResource(urlintro, pathspds,:width=>800, :alt=>"Spiders", cache=false))
+"""
+
+# ╔═╡ 6330319d-9425-4619-95cc-7f5bd7eca9bf
+md"""## From Quantum Circuit to ZX-Diagram
 
 """
 
@@ -134,8 +147,10 @@ md"""# Thank you!
 # ╟─bd7c63de-cb71-41d2-ae99-8b8807513f25
 # ╟─aa055b7a-ba85-448e-8031-12ec3979e953
 # ╟─166384c5-b083-4792-a397-2f9495a3bc7b
-# ╠═87538743-fed0-4db1-bc6b-a2f76b68cd5a
-# ╠═9cd983bf-063c-414e-8bd9-5cb66a3524a1
+# ╟─87538743-fed0-4db1-bc6b-a2f76b68cd5a
+# ╟─706f074a-95ea-4d3a-8ef6-b355f1723a01
+# ╟─9cd983bf-063c-414e-8bd9-5cb66a3524a1
+# ╠═6330319d-9425-4619-95cc-7f5bd7eca9bf
 # ╠═539f7688-6680-4298-b695-447019ebe4af
 # ╠═9b9e1445-be58-42f1-b76e-13e644438be9
 # ╠═0a82ec5e-13e2-4635-a34f-7fd89a6f411e
