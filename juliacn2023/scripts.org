@@ -140,3 +140,22 @@ As we go through this translation, you'll see how the complex interplay of
 quantum gates and operations in the circuit is elegantly represented in the ZX
 Diagram. This example will illustrate the practicality of ZX-Calculus in
 visualizing and simplifying quantum computing concepts.
+
+** Rewrite Rules and Completeness
+In our exploration of ZX Diagrams, an important question arises: Why do we
+transition to using ZX Diagrams in quantum computing? The answer lies in the set
+of transformative rules provided by ZX-Calculus and the concept of completeness.
+
+ZX-Calculus is not just a collection of diagrams; it's a comprehensive system
+governed by a set of rules. These rules allow us to transform different ZX
+Diagrams into each other, enabling us to represent and manipulate complex
+quantum operations in a simplified graphical form.
+
+Now, let's talk about completeness. In the realm of ZX-Calculus, completeness is
+defined as follows: 'A graphical calculus is complete when its rewrite rules are
+powerful enough to prove any true equation.' What does this mean in practice? It
+means that if two diagrams represent the same linear map, then there is a
+sequence of rewrites that can transform one diagram into the other. This
+property is crucial. It ensures that any quantum operation or state that can be
+expressed in a linear map can be fully represented and manipulated within the
+ZX-Calculus framework.

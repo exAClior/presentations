@@ -111,8 +111,15 @@ $(RobustLocalResource(urlintro, pathintro,:width=>800, :align=>:center, :alt=>"T
 
 # ╔═╡ 3213c733-672a-4eca-9381-1a690d666eed
 md"""## Rewrite Rules
-- Complete
+- **Completeness**: "A graphical calculus is complete when its rewrite rules are powerful enough to prove any true equation."[^ZXWorking]
+- **Practical Implication**: Equivalence of Linear Maps through Transformative Sequences in ZX Diagrams
+- **Rules**:
 
+"""
+
+# ╔═╡ 10af6d43-453e-46e0-b983-eb00c53e8a68
+md"""
+[^ZXWorking]: van de Wetering, John. "ZX-calculus for the working quantum computer scientist." arXiv preprint arXiv:2012.13966 (2020).
 """
 
 # ╔═╡ 6bbf81a9-1fa8-4b83-8663-307ed886446a
@@ -186,7 +193,8 @@ md"""# Thank you!
 # ╟─d8c73fec-928f-4174-a737-be2e1de0589e
 # ╟─6330319d-9425-4619-95cc-7f5bd7eca9bf
 # ╟─11f63c7e-f648-4f1d-b09d-3ec15a613174
-# ╠═3213c733-672a-4eca-9381-1a690d666eed
+# ╟─3213c733-672a-4eca-9381-1a690d666eed
+# ╟─10af6d43-453e-46e0-b983-eb00c53e8a68
 # ╠═6bbf81a9-1fa8-4b83-8663-307ed886446a
 # ╠═ab4f76a8-10c5-4dee-8b99-446bb095a65c
 # ╠═02390a36-06fe-4fb7-b00f-46461542a8aa
