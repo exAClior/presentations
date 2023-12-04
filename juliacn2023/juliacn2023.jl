@@ -88,27 +88,60 @@ md"""## ZX-Diagrams
 - Tensors Parameterized by:
   1) Number of Legs
   2) Angles of Rotation (where applicable)
-$(RobustLocalResource(urlintro, pathspds,:width=>800, :alt=>"Spiders", cache=false))
+- Spiders: $(RobustLocalResource(urlintro, pathspds,:width=>800, :align=>:center, :alt=>"Spiders", cache=false))
 """
+
+# ╔═╡ d8c73fec-928f-4174-a737-be2e1de0589e
+begin
+	pathtable = "figs/table.png"
+end;
 
 # ╔═╡ 6330319d-9425-4619-95cc-7f5bd7eca9bf
 md"""## From Quantum Circuit to ZX-Diagram
+- Direct translation from Quantum Gates into Spiders
+- Examples: $(RobustLocalResource(urlintro, pathtable,:width=>500, :align=>:center, :alt=>"Translation table", cache=false))
+- Universality
+"""
+
+# ╔═╡ 11f63c7e-f648-4f1d-b09d-3ec15a613174
+md"""## Example of Translation
+$(RobustLocalResource(urlintro, pathintro,:width=>800, :align=>:center, :alt=>"Translation table", cache=false))
+- Why?
+"""
+
+# ╔═╡ 3213c733-672a-4eca-9381-1a690d666eed
+md"""## Rewrite Rules
+- Complete
 
 """
 
-# ╔═╡ 539f7688-6680-4298-b695-447019ebe4af
-md"#Applications of ZXCalculus
-## MBQC
-"
+# ╔═╡ 6bbf81a9-1fa8-4b83-8663-307ed886446a
+md"""## Soundness
 
-# ╔═╡ 9b9e1445-be58-42f1-b76e-13e644438be9
-md"## circuit simplification
-"
+"""
 
-# ╔═╡ 0a82ec5e-13e2-4635-a34f-7fd89a6f411e
-md"## Others
+# ╔═╡ ab4f76a8-10c5-4dee-8b99-446bb095a65c
+md"""## Applications
+- Magic State Distillation
+- Phase Teleporations
 
-"
+"""
+
+# ╔═╡ 02390a36-06fe-4fb7-b00f-46461542a8aa
+md"""# ZXW-Calculus: Other Flavors of graphical Language
+- Why need other flavors of Calculus
+"""
+
+# ╔═╡ 2ba578c3-1ae0-45f7-aec8-445fabf7a911
+md"""## Extra Spiders
+
+"""
+
+# ╔═╡ 2b818577-8ba6-4939-b6ff-2572b169ab63
+md"""## Application
+- gradient calculation
+
+"""
 
 # ╔═╡ dd1580cf-c7f3-4f2b-9141-09585ca7e36c
 
@@ -150,10 +183,15 @@ md"""# Thank you!
 # ╟─87538743-fed0-4db1-bc6b-a2f76b68cd5a
 # ╟─706f074a-95ea-4d3a-8ef6-b355f1723a01
 # ╟─9cd983bf-063c-414e-8bd9-5cb66a3524a1
-# ╠═6330319d-9425-4619-95cc-7f5bd7eca9bf
-# ╠═539f7688-6680-4298-b695-447019ebe4af
-# ╠═9b9e1445-be58-42f1-b76e-13e644438be9
-# ╠═0a82ec5e-13e2-4635-a34f-7fd89a6f411e
+# ╟─d8c73fec-928f-4174-a737-be2e1de0589e
+# ╟─6330319d-9425-4619-95cc-7f5bd7eca9bf
+# ╟─11f63c7e-f648-4f1d-b09d-3ec15a613174
+# ╠═3213c733-672a-4eca-9381-1a690d666eed
+# ╠═6bbf81a9-1fa8-4b83-8663-307ed886446a
+# ╠═ab4f76a8-10c5-4dee-8b99-446bb095a65c
+# ╠═02390a36-06fe-4fb7-b00f-46461542a8aa
+# ╠═2ba578c3-1ae0-45f7-aec8-445fabf7a911
+# ╠═2b818577-8ba6-4939-b6ff-2572b169ab63
 # ╠═dd1580cf-c7f3-4f2b-9141-09585ca7e36c
 # ╠═759d5cef-c63c-4deb-9876-3707f21da8cd
 # ╠═f41bd7ef-c4b6-44b0-a920-90f1dd5019e5
