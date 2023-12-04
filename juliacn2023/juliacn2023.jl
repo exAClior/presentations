@@ -11,8 +11,13 @@ begin
     using PlutoUI, PlutoTeachingTools
 	using BenchmarkTools, Random
     using ZXCalculus, ZXCalculus.ZX, YaoPlots, Yao
-end
+end;
 
+# ╔═╡ 3967f9c9-5f72-4406-83f0-7cd0cd9648ce
+begin
+	using ZXCalculus.ZXW
+	using ZXCalculus.ZXW:Z, add_spider!, Parameter, insert_spider!, add_edge!
+end;
 
 # ╔═╡ 0f6ad1ea-39b2-4197-8f00-5afa55839be2
 ChooseDisplayMode()
@@ -106,26 +111,47 @@ md"""## From Quantum Circuit to ZX-Diagram
 # ╔═╡ 11f63c7e-f648-4f1d-b09d-3ec15a613174
 md"""## Example of Translation
 $(RobustLocalResource(urlintro, pathintro,:width=>800, :align=>:center, :alt=>"Translation table", cache=false))
-- Why?
+- Why do we translate?
 """
+
+# ╔═╡ 1607afe4-9e58-4211-b471-83a4c6f504aa
+begin
+	pathzxrule = "figs/ZX-rules.png"
+end;
 
 # ╔═╡ 3213c733-672a-4eca-9381-1a690d666eed
 md"""## Rewrite Rules
 - **Completeness**: "A graphical calculus is complete when its rewrite rules are powerful enough to prove any true equation."[^ZXWorking]
 - **Practical Implication**: Equivalence of Linear Maps through Transformative Sequences in ZX Diagrams
-- **Rules**:
-
+- **Rules**: $(RobustLocalResource(urlintro, pathzxrule,:width=>800, :align=>:center, :alt=>"Translation table", cache=false))
 """
 
-# ╔═╡ 10af6d43-453e-46e0-b983-eb00c53e8a68
-md"""
-[^ZXWorking]: van de Wetering, John. "ZX-calculus for the working quantum computer scientist." arXiv preprint arXiv:2012.13966 (2020).
-"""
+# ╔═╡ 5a01eef2-8893-4ecc-ac0b-7c1320852068
+begin
+	pathfusion = "figs/fusion.png"
+end;
 
 # ╔═╡ 6bbf81a9-1fa8-4b83-8663-307ed886446a
 md"""## Soundness
-
+- **Definition of Soundness**: "A rewrite rule is sound when it preserves the underlying semantics."[^ZXWorking]
+- **Semantics in ZX-Calculus**: Representation of Linear Maps Demonstrating Soundness through ZXCalculus.jl:
+- **Example**: Fusion Rule $(RobustLocalResource(urlintro, pathfusion,:width=>300, :align=>:center, :alt=>"Translation table", cache=false))
+- Code Demonstration in ZXCalculus.jl
 """
+
+# ╔═╡ 51b2c6b7-78f4-401e-899b-dab3bd8a4208
+begin
+	zxwd = ZXWDiagram(2)
+	insert_spider!(zxwd,1,2,Z(Parameter(Val(:PiUnit),-2)))
+	insert_spider!(zxwd,3,4,Z(Parameter(Val(:PiUnit),1)))
+	add_edge!(zxwd,5,6)
+end;
+
+# ╔═╡ 0d78bec4-e737-4eef-aa9a-b0d2bb50c309
+vizcircuit(zxwd;graphwidth=10,graphheight=5,density=0.1)
+
+# ╔═╡ ca477e83-5bf0-42ef-8f59-6446241b97ef
+
 
 # ╔═╡ ab4f76a8-10c5-4dee-8b99-446bb095a65c
 md"""## Applications
@@ -178,6 +204,11 @@ md"""## Application
 md"""# Thank you!
 """
 
+# ╔═╡ 10af6d43-453e-46e0-b983-eb00c53e8a68
+md"""
+[^ZXWorking]: van de Wetering, John. "ZX-calculus for the working quantum computer scientist." arXiv preprint arXiv:2012.13966 (2020).
+"""
+
 # ╔═╡ Cell order:
 # ╟─5b60b904-918c-11ee-2d1b-c382c891cbb8
 # ╟─0f6ad1ea-39b2-4197-8f00-5afa55839be2
@@ -193,9 +224,14 @@ md"""# Thank you!
 # ╟─d8c73fec-928f-4174-a737-be2e1de0589e
 # ╟─6330319d-9425-4619-95cc-7f5bd7eca9bf
 # ╟─11f63c7e-f648-4f1d-b09d-3ec15a613174
+# ╟─1607afe4-9e58-4211-b471-83a4c6f504aa
 # ╟─3213c733-672a-4eca-9381-1a690d666eed
-# ╟─10af6d43-453e-46e0-b983-eb00c53e8a68
-# ╠═6bbf81a9-1fa8-4b83-8663-307ed886446a
+# ╟─5a01eef2-8893-4ecc-ac0b-7c1320852068
+# ╟─6bbf81a9-1fa8-4b83-8663-307ed886446a
+# ╠═3967f9c9-5f72-4406-83f0-7cd0cd9648ce
+# ╠═51b2c6b7-78f4-401e-899b-dab3bd8a4208
+# ╠═0d78bec4-e737-4eef-aa9a-b0d2bb50c309
+# ╠═ca477e83-5bf0-42ef-8f59-6446241b97ef
 # ╠═ab4f76a8-10c5-4dee-8b99-446bb095a65c
 # ╠═02390a36-06fe-4fb7-b00f-46461542a8aa
 # ╠═2ba578c3-1ae0-45f7-aec8-445fabf7a911
@@ -209,3 +245,4 @@ md"""# Thank you!
 # ╠═c73a88a9-8251-47e9-a5fd-e6a83b1f528b
 # ╠═a28cddd3-717e-4cd6-9178-77019818993f
 # ╠═d516b5ed-69f9-41d7-8627-7df14a740e7c
+# ╟─10af6d43-453e-46e0-b983-eb00c53e8a68
