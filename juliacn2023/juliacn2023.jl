@@ -9,14 +9,14 @@ begin
     using Pkg; Pkg.activate(".")
 	using Revise
     using PlutoUI, PlutoTeachingTools
-	using BenchmarkTools, Random
+	using BenchmarkTools, Random, Latexify
     using ZXCalculus, ZXCalculus.ZX, YaoPlots, Yao
 end;
 
 # ╔═╡ 3967f9c9-5f72-4406-83f0-7cd0cd9648ce
 begin
 	using ZXCalculus.ZXW
-	using ZXCalculus.ZXW:Z, add_spider!, Parameter, insert_spider!, add_edge!, rewrite!, match
+	using ZXCalculus.ZXW:Z, add_spider!, Parameter, insert_spider!, add_edge!, rewrite!, match, insert_wtrig!, substitute_variables!
 	using ZXCalculus.Application: to_matrix
 end;
 
@@ -57,10 +57,22 @@ md"""# URLS (remove it!)
 # ╔═╡ 166384c5-b083-4792-a397-2f9495a3bc7b
 begin
 	urlintro = "https://chenzhao44.github.io/assets/blog_res/ZX/QC_to_ZX.png"
-	pathintro= "figs/zxintro.png"
+	urlcz = "https://avatars.githubusercontent.com/u/50411747?v=4"
 	urltp = "https://t3.ftcdn.net/jpg/02/61/08/76/360_F_261087622_8eRI0TAwDAyabS1b0Uifx1wKqHzA41r3.jpg"
+	urlrl = "https://twitter.com/rogerluorl18/photo"
+	urlspds = ""
+	pathintro= "figs/zxintro.png"
 	pathzsp = "figs/z-spider.png"
 	pathxsp = "figs/x-spider.png"
+	pathzxrule = "figs/ZX-rules.png"
+	pathspds = "figs/spiders.png"
+	pathtable = "figs/table.png"
+	pathmag = "figs/magicinjection.png"
+	pathmagzx = "figs/magicinjectionzx.png"
+	pathcz = "figs/ChenZhao44.jpeg"
+	pathrl = "figs/RogerLuo.jpg"
+	pathhad = "figs/hadamard.png"
+	pathfusion = "figs/fusion.png"
 end;
 
 # ╔═╡ 87538743-fed0-4db1-bc6b-a2f76b68cd5a
@@ -68,99 +80,99 @@ md"""# Introduction to ZX-calculus
 ## ZX-calculus
 - **Calculus**: "mathematical study of continuous change" [^fn1]
 - **演算**: "依照一定的原理、公式计算" [^fn2]
-- **Example**: $x^2+2xy + y^2 = (x+y)^2$
+- **Example**: $\cos(\theta)^2 + \sin(\theta)^2 = 1$
 - **Z Tensor**: $(RobustLocalResource(urltp, pathzsp,:width=>800,:align=>:center, :alt=>"Z Spider", cache=false))
 - **X Tensor**: $(RobustLocalResource(urltp, pathxsp,:width=>800,:align=>:center, :alt=>"X Spider", cache=false))
 """
 
-# ╔═╡ 706f074a-95ea-4d3a-8ef6-b355f1723a01
-begin
-	urlspds = ""
-	pathspds = "figs/spiders.png"
-end;
-
-# ╔═╡ f7eddc42-beb9-4fdd-8b68-c81c55907e41
-#use ZXCalculus.jl to show cnot gate matrix rep is the same as zx 
-#also give H and point out it's a syntax sugar
-# modify graphing, make font larger, circle larger, line thicker, change the way i record spider info, background color
-
-# ╔═╡ 9cd983bf-063c-414e-8bd9-5cb66a3524a1
-md"""## ZX-Diagrams
-- Multi-graph: what's the definiton
-- Visualization
-- Only connectivity matters, but circuit convention, 
-- Graphical Representations of a specialized Tensor Networks
+# ╔═╡ 6330319d-9425-4619-95cc-7f5bd7eca9bf
+md"""## Gates to ZX-Tensors
+- $(RobustLocalResource(urlintro, pathtable,:width=>500, :align=>:center, :alt=>"Translation table", cache=false))
+- **Syntax Sugar**: $(RobustLocalResource(urltp, pathhad,:width=>300, :align=>:center, :alt=>"Translation table", cache=false))
 """
 
-# ╔═╡ d8c73fec-928f-4174-a737-be2e1de0589e
-begin
-	pathtable = "figs/table.png"
-end;
+# ╔═╡ b202bd88-2cb7-4a61-b0e1-58fe28f86694
+md"""## CNOT
+"""
 
-# ╔═╡ 6330319d-9425-4619-95cc-7f5bd7eca9bf
-md"""## From Quantum Circuit to ZX-Diagram
-- Direct translation from Quantum Gates into Spiders
-- Examples: $(RobustLocalResource(urlintro, pathtable,:width=>500, :align=>:center, :alt=>"Translation table", cache=false))
-- Universality (give other's reference on linear map universality. Some of ZX Calculus is not . QMA complete)
+# ╔═╡ 706f074a-95ea-4d3a-8ef6-b355f1723a01
+begin
+	cnot_diagram = ZXWDiagram(2)
+	push_gate!(cnot_diagram,Val(:CNOT),1,2)
+	cnot_diagram_sem = round.(to_matrix(cnot_diagram);digits=5)
+	latexify(cnot_diagram_sem)
+end
+
+
+# ╔═╡ 578abf2a-7689-4ca6-97ce-f46e6d09c2f3
+vizcircuit(cnot_diagram; fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
+
+# ╔═╡ 07d1c636-d75d-4cf9-bd6f-6ff7ad3c71f9
+md"""## Hadamard
+"""
+
+# ╔═╡ 70f24e1d-e9b9-469d-bdfe-5ac58c2cc3b3
+begin
+	hadamard_diagram = ZXWDiagram(1)
+	push_gate!(hadamard_diagram,Val(:Z),1,1//2)
+	push_gate!(hadamard_diagram,Val(:X),1,1//2)
+	push_gate!(hadamard_diagram,Val(:Z),1,1//2)
+	hadamard_diagram_sem = round.(exp(-im*π/4).*to_matrix(hadamard_diagram);digits=5)
+	latexify(hadamard_diagram_sem)
+end
+
+# ╔═╡ 5a460cd4-3339-47e2-99ed-551cd2c6ef8d
+vizcircuit(hadamard_diagram;fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
+
+# ╔═╡ ca74bef6-1c75-4d55-8b84-e309a9fecf2a
+md"""## Universality
+- Quantum Circuits
+- Arbitrary Linear Map: $2^n \rightarrow 2^m$ too! [^LMUniv]
+- "Circuit Extraction is #P-hard" [^CircExtra]
 """
 
 # ╔═╡ 11f63c7e-f648-4f1d-b09d-3ec15a613174
-md"""## Example of Translation
-$(RobustLocalResource(urlintro, pathintro,:width=>800, :align=>:center, :alt=>"Translation table", cache=false))
-- Why do we translate?
+md"""## Circuit translation example
+- $(RobustLocalResource(urlintro, pathintro,:width=>800, :align=>:center, :alt=>"Translation table", cache=false))
+- **ZX-Diagram**: A multigraph, a graph which is permitted to have edges that have the same end nodes, with vertices being Z and X tensors.
+- **What's the purpose**?
 """
-
-# ╔═╡ 1607afe4-9e58-4211-b471-83a4c6f504aa
-begin
-	pathzxrule = "figs/ZX-rules.png"
-end;
 
 # ╔═╡ 3213c733-672a-4eca-9381-1a690d666eed
-md"""## Rewrite Rules(Calculus)
+md"""## Rewrite Rules 
 - **Rules**: $(RobustLocalResource(urlintro, pathzxrule,:width=>800, :align=>:center, :alt=>"Translation table", cache=false))
-- What's the use. connect to previous algebra example
+- **Recall**: $\cos(\theta)^2 + \sin(\theta)^2 = 1$
 - **Completeness**: "A graphical calculus is complete when its rewrite rules are powerful enough to prove any true equation."[^ZXWorking]
-- **Practical Implication**: Equivalence of Linear Maps through Transformative Sequences in ZX Diagrams
+- **Practical Implication**: If two ZX-Diagrams are _equal_, the above rewrite rules suffices to transform one to another.
 
 """
-
-# ╔═╡ 5a01eef2-8893-4ecc-ac0b-7c1320852068
-begin
-	pathfusion = "figs/fusion.png"
-end;
 
 # ╔═╡ 51b2c6b7-78f4-401e-899b-dab3bd8a4208
 begin
-	zxwd = ZXWDiagram(2)
-	insert_spider!(zxwd,1,2,Z(Parameter(Val(:PiUnit),-2)))
-	insert_spider!(zxwd,3,4,Z(Parameter(Val(:PiUnit),1)))
-	add_edge!(zxwd,5,6)
+	zxd = ZXWDiagram(2)
+	insert_spider!(zxd,1,2,Z(Parameter(Val(:PiUnit),1//2)))
+	insert_spider!(zxd,3,4,Z(Parameter(Val(:PiUnit),-1//2)))
+	add_edge!(zxd,5,6)
 end;
 
 # ╔═╡ 0d78bec4-e737-4eef-aa9a-b0d2bb50c309
-vizcircuit(zxwd;graphwidth=10,graphheight=5,density=0.1)
+vizcircuit(zxd;fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
 
 # ╔═╡ bfdf1671-d300-44db-8d2b-9e5fe5cdbed3
 begin
-	zxwd2 = copy(zxwd)
-	matched_pos = match(Rule(:s1),zxwd2)
-	zxwd2 = rewrite!(Rule(:s1),zxwd2,matched_pos)
-end
+	zxd2 = copy(zxd)
+	matched_pos = match(Rule(:s1),zxd2)
+	zxd2 = rewrite!(Rule(:s1),zxd2,matched_pos)
+end;
 
 # ╔═╡ 548182df-6533-4d84-8373-8e0678c3cf82
-vizcircuit(zxwd2;graphwidth=10,graphheight=5,density=0.1)#change color
+vizcircuit(zxd2;fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
 
-# ╔═╡ ca477e83-5bf0-42ef-8f59-6446241b97ef
-@assert to_matrix(zxwd) ≈ to_matrix(zxwd2)
-
-# ╔═╡ 04347137-2e50-4c9f-b270-9a237b0ca0d3
-# what I did, ZXW Calculus, W calculus definition + reference
+# ╔═╡ 019de6e9-c36a-4c37-86f8-6a5d4f03ebdc
+@assert to_matrix(zxd) ≈ to_matrix(zxd2)
 
 # ╔═╡ 96ac3039-6a4d-4f06-94a2-f0369ff414c3
-begin
-	pathmag = "figs/magicinjection.png"
-	pathmagzx = "figs/magicinjectionzx.png"
-end;
+
 
 # ╔═╡ c7fe41a9-4b2d-4de4-8657-f6d1a831cfc2
 md"""## Applications
@@ -230,23 +242,18 @@ md"""## Application
 
 """
 
-# ╔═╡ 3b6c88e7-6d8a-46a8-a3fb-b396c611aa09
-begin
-	urlcz = "https://avatars.githubusercontent.com/u/50411747?v=4"
-	pathcz = "figs/ChenZhao44.jpeg"
-	urlrl = "https://twitter.com/rogerluorl18/photo"
-	pathrl = "figs/RogerLuo.jpg"
-end;
-
 # ╔═╡ d516b5ed-69f9-41d7-8627-7df14a740e7c
 md"""# Summary & Credits
-- Originally developed by 
+- Authors of ZXCalculus: 
 |Dr. [Chen Zhao](https://github.com/ChenZhao44) |[Xiu-zhe (Roger) Luo](https://github.com/Roger-luo)|
 |--------------|------------------|
 |$(RobustLocalResource(urlcz, pathcz,:width=>200, :alt=>"Dr. Chen Zhao", cache=false))|$(RobustLocalResource(urlrl, pathrl, :width=>200, :alt=>"Xiuzhe (Roger) Luo", cache=false))|
-- My Mentor Chen Zhao during the project
-Thank you!
+- Dr. Chen Zhao mentored me during the OSPP project
+- _Thank you for your attention_!
 """
+
+# ╔═╡ 3b6c88e7-6d8a-46a8-a3fb-b396c611aa09
+
 
 # ╔═╡ f6312a2b-5aed-4867-8278-089ca7ad652b
 md"""# Footnotes (remove !)
@@ -255,6 +262,8 @@ md"""# Footnotes (remove !)
 # ╔═╡ 10af6d43-453e-46e0-b983-eb00c53e8a68
 md"""
 [^ZXWorking]: van de Wetering, John. "ZX-calculus for the working quantum computer scientist." arXiv preprint arXiv:2012.13966 (2020).
+[^LMUniv]: Coecke, Bob, and Ross Duncan. "Interacting quantum observables: categorical algebra and diagrammatics." New Journal of Physics 13.4 (2011): 043016.
+[^CircExtra]: Coecke, Bob, and Ross Duncan. "Interacting quantum observables: categorical algebra and diagrammatics." New Journal of Physics 13.4 (2011): 043016.
 [^fn1]: https://en.wikipedia.org/wiki/Calculus
 [^fn2]: Oxford Languages
 """
@@ -274,23 +283,23 @@ md"""## Soundness
 # ╟─7636ca8e-04a8-443a-a7f6-e7fbd70ebce6
 # ╟─e3469b40-b693-4230-a2f5-4e6c1b21619c
 # ╠═166384c5-b083-4792-a397-2f9495a3bc7b
-# ╟─87538743-fed0-4db1-bc6b-a2f76b68cd5a
-# ╠═6330319d-9425-4619-95cc-7f5bd7eca9bf
-# ╟─706f074a-95ea-4d3a-8ef6-b355f1723a01
-# ╠═f7eddc42-beb9-4fdd-8b68-c81c55907e41
-# ╠═9cd983bf-063c-414e-8bd9-5cb66a3524a1
-# ╟─d8c73fec-928f-4174-a737-be2e1de0589e
+# ╠═87538743-fed0-4db1-bc6b-a2f76b68cd5a
+# ╟─6330319d-9425-4619-95cc-7f5bd7eca9bf
+# ╟─b202bd88-2cb7-4a61-b0e1-58fe28f86694
+# ╠═706f074a-95ea-4d3a-8ef6-b355f1723a01
+# ╠═578abf2a-7689-4ca6-97ce-f46e6d09c2f3
+# ╟─07d1c636-d75d-4cf9-bd6f-6ff7ad3c71f9
+# ╠═70f24e1d-e9b9-469d-bdfe-5ac58c2cc3b3
+# ╠═5a460cd4-3339-47e2-99ed-551cd2c6ef8d
+# ╟─ca74bef6-1c75-4d55-8b84-e309a9fecf2a
 # ╟─11f63c7e-f648-4f1d-b09d-3ec15a613174
-# ╟─1607afe4-9e58-4211-b471-83a4c6f504aa
-# ╠═3213c733-672a-4eca-9381-1a690d666eed
-# ╟─5a01eef2-8893-4ecc-ac0b-7c1320852068
-# ╠═3967f9c9-5f72-4406-83f0-7cd0cd9648ce
+# ╟─3213c733-672a-4eca-9381-1a690d666eed
+# ╟─3967f9c9-5f72-4406-83f0-7cd0cd9648ce
 # ╠═51b2c6b7-78f4-401e-899b-dab3bd8a4208
 # ╠═0d78bec4-e737-4eef-aa9a-b0d2bb50c309
 # ╠═bfdf1671-d300-44db-8d2b-9e5fe5cdbed3
 # ╠═548182df-6533-4d84-8373-8e0678c3cf82
-# ╠═ca477e83-5bf0-42ef-8f59-6446241b97ef
-# ╠═04347137-2e50-4c9f-b270-9a237b0ca0d3
+# ╠═019de6e9-c36a-4c37-86f8-6a5d4f03ebdc
 # ╟─96ac3039-6a4d-4f06-94a2-f0369ff414c3
 # ╟─c7fe41a9-4b2d-4de4-8657-f6d1a831cfc2
 # ╠═fb8fc69c-a77f-4442-8ed3-ff1d5ae3911c
