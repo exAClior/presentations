@@ -79,9 +79,15 @@ begin
 	pathspds = "figs/spiders.png"
 end;
 
+# ╔═╡ f7eddc42-beb9-4fdd-8b68-c81c55907e41
+#use ZXCalculus.jl to show cnot gate matrix rep is the same as zx 
+#also give H and point out it's a syntax sugar
+# modify graphing, make font larger, circle larger, line thicker, change the way i record spider info, background color
+
 # ╔═╡ 9cd983bf-063c-414e-8bd9-5cb66a3524a1
 md"""## ZX-Diagrams
-- Z "Spider" and X "Spider" (separate): $(RobustLocalResource(urlintro, pathspds,:width=>800, :align=>:center, :alt=>"Spiders", cache=false))
+- Multi-graph: what's the definiton
+- Visualization
 - Only connectivity matters, but circuit convention, 
 - Graphical Representations of a specialized Tensor Networks
 """
@@ -97,10 +103,6 @@ md"""## From Quantum Circuit to ZX-Diagram
 - Examples: $(RobustLocalResource(urlintro, pathtable,:width=>500, :align=>:center, :alt=>"Translation table", cache=false))
 - Universality (give other's reference on linear map universality. Some of ZX Calculus is not . QMA complete)
 """
-
-# ╔═╡ f7eddc42-beb9-4fdd-8b68-c81c55907e41
-#use ZXCalculus.jl to show cnot gate matrix rep is the same as zx 
-#also give H and point out it's a syntax sugar
 
 # ╔═╡ 11f63c7e-f648-4f1d-b09d-3ec15a613174
 md"""## Example of Translation
@@ -273,11 +275,11 @@ md"""## Soundness
 # ╟─e3469b40-b693-4230-a2f5-4e6c1b21619c
 # ╠═166384c5-b083-4792-a397-2f9495a3bc7b
 # ╟─87538743-fed0-4db1-bc6b-a2f76b68cd5a
+# ╠═6330319d-9425-4619-95cc-7f5bd7eca9bf
 # ╟─706f074a-95ea-4d3a-8ef6-b355f1723a01
+# ╠═f7eddc42-beb9-4fdd-8b68-c81c55907e41
 # ╠═9cd983bf-063c-414e-8bd9-5cb66a3524a1
 # ╟─d8c73fec-928f-4174-a737-be2e1de0589e
-# ╠═6330319d-9425-4619-95cc-7f5bd7eca9bf
-# ╠═f7eddc42-beb9-4fdd-8b68-c81c55907e41
 # ╟─11f63c7e-f648-4f1d-b09d-3ec15a613174
 # ╟─1607afe4-9e58-4211-b471-83a4c6f504aa
 # ╠═3213c733-672a-4eca-9381-1a690d666eed
