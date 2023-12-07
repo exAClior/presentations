@@ -24,6 +24,11 @@ end;
 # ╔═╡ c07c5b84-7bc6-40a2-ad65-9647a6280ffd
 using ZXCalculus.ZX: phase_teleportation, tcount
 
+# ╔═╡ c971cff3-13b9-45a0-b954-533ebef04c81
+begin 
+	using ZXCalculus.ZXW: expval_circ!, CalcRule, stack_zxwd!
+end;
+
 # ╔═╡ 0f6ad1ea-39b2-4197-8f00-5afa55839be2
 ChooseDisplayMode()
 
@@ -91,6 +96,10 @@ begin
 	pathbtrig = "figs/btriangle.png"
 	pathbtrig_sug = "figs/btrig_sugar.png"
 	pathzxw_add = "figs/addition.png"
+	pathdiff_rule ="figs/diff_rule.png"
+	pathint_rule = "figs/int_rule.png"
+	pathansatz = "figs/ansatz_circ.png"
+	
 end;
 
 # ╔═╡ 87538743-fed0-4db1-bc6b-a2f76b68cd5a
@@ -371,13 +380,58 @@ md"""# ZXW-Calculus: A Dialect
 md"""## Rewrite Rules
 - $\frac{\partial (f(x)g(x)h(x))}{\partial x} = \frac{\partial f(x)}{\partial x}g(x)h(x) + \frac{\partial g(x)}{\partial x}f(x)h(x) + \frac{\partial h(x)}{\partial x}f(x)g(x)$
 - **Addition of Linear Maps**: $(RobustLocalResource(urlintro, pathzxw_add,:width=>400, :align=>:center, :alt=>"W Spider", cache=false))
-
+- **Rule to differentiate**: $(RobustLocalResource(urlintro, pathdiff_rule,:width=>400, :align=>:center, :alt=>"W Spider", cache=false))
+- **Rule to integrate**: $(RobustLocalResource(urlintro, pathint_rule,:width=>400, :align=>:center, :alt=>"W Spider", cache=false))
 """
 
 # ╔═╡ 2b818577-8ba6-4939-b6ff-2572b169ab63
 md"""## Application: Barren Plateau Detection
-
+- **Circuit Ansatz**: Parameterized Circuit
+- **Barren Plateau**: "the training landscape of many circuit ansätze have been shown to be exponentially flat with respect to circuit size, making gradient descent impossible" [^DiffInt]
+- **Expectation value**: $\langle H \rangle = \langle 0 | U^{\dagger}(\vec{\theta}) H U(\vec{\theta}) |0\rangle$
+- **Variance of Expectation value**: 
+```math
+\mathbf{Var}\left(\frac{ \partial \braket{H}}{\partial\theta_j}\right)
+= \mathbf{E}\left(\left(\frac{ \partial \braket{H}}{\partial\theta_j}\right)^2\right) \\
+= \frac{1}{(2\pi)^m}\int_{-\pi}^{\pi} \cdots\int_{-\pi}^{\pi}  \left(\frac{ \partial \braket{H}}{\partial\theta_j}\right)^2d\theta_1\cdots d\theta_m, j=1, \cdots, m.
+```
 """
+
+# ╔═╡ bc3a6b2f-31ce-46d7-8840-908c2b9c5558
+begin
+	zxwd = ZXWDiagram(2)
+
+    push_gate!(zxwd, Val(:H), 1)
+    push_gate!(zxwd, Val(:H), 2)
+    push_gate!(zxwd, Val(:CZ), 1, 2)
+    push_gate!(zxwd, Val(:X), 1, :a; autoconvert = false)
+    push_gate!(zxwd, Val(:X), 2, :b; autoconvert = false)
+	vizcircuit(zxwd;fontsize=15,bgcolor="white",linewidth=5,circsize=18,vrot=0.0,graphwidth=15,graphheight=10)
+end
+
+# ╔═╡ b4fb8daa-4906-4b2f-9951-0a629f03478b
+begin
+	    exp_zxwd = expval_circ!(zxwd, "ZZ")
+		vizcircuit(exp_zxwd;fontsize=5,bgcolor="white",linewidth=5,circsize=10,vrot=0.0,graphwidth=20,graphheight=8)
+end
+
+# ╔═╡ ece7daa1-e3fc-4b15-80ce-46a4b9049757
+begin
+	matches = match(CalcRule(:diff, :b), exp_zxwd)
+    diff_exp = rewrite!(CalcRule(:diff, :b), exp_zxwd, matches)
+    matches = match(CalcRule(:diff, :a), diff_exp)
+    diff_exp = rewrite!(CalcRule(:diff, :a), diff_exp, matches)
+    dbdiff_zxwd = stack_zxwd!(diff_exp, copy(diff_exp))
+
+    matches = match(CalcRule(:int, :b), dbdiff_zxwd)
+    int_dbdiff = rewrite!(CalcRule(:int, :b), dbdiff_zxwd, matches)
+    matches = match(CalcRule(:int, :a), int_dbdiff)
+    int_dadiff = rewrite!(CalcRule(:int, :a), copy(int_dbdiff), matches)
+    int_vala = real(Matrix(int_dadiff)[1, 1])
+	    
+	A = real(Matrix(substitute_variables!(copy(int_dbdiff), Dict(:a => 0.0)))[1, 1])
+end
+
 
 # ╔═╡ d516b5ed-69f9-41d7-8627-7df14a740e7c
 md"""# Summary & Credits
@@ -391,10 +445,6 @@ md"""# Summary & Credits
 
 # ╔═╡ 3b6c88e7-6d8a-46a8-a3fb-b396c611aa09
 
-
-# ╔═╡ f6312a2b-5aed-4867-8278-089ca7ad652b
-md"""# Footnotes (remove !)
-"""
 
 # ╔═╡ a0fad932-7a89-472a-9c50-24dc771543bc
 md"""## Rules
@@ -420,6 +470,7 @@ md"""
 [^EKThm]: Eastin, Bryan and Emanuel Knill. “Restrictions on transversal encoded quantum gate sets.” Physical review letters 102 11 (2008): 110502 .
 [^MagicCosts]: Campbell, Earl T. et al. “Roads towards fault-tolerant universal quantum computation.” Nature 549 (2016): 172-179.
 [^DiffInt]: Wang, Quanlong and Richie Yeung. “Differentiating and Integrating ZX Diagrams.” ArXiv abs/2201.13250 (2022): n. pag.
+[^BarrenPlateau]:Zhao, Chen and Xiao-Shan Gao. “Analyzing the barren plateau phenomenon in training quantum neural network with the ZX-calculus.” Quantum 5 (2021): 466.
 [^StackExchange]: https://quantumcomputing.stackexchange.com/a/28058/5116
 [^EKWiki]: https://en.wikipedia.org/wiki/Eastin%E2%80%93Knill_theorem
 [^fn1]: https://en.wikipedia.org/wiki/Calculus
@@ -480,13 +531,16 @@ md"""## Soundness
 # ╠═64243e63-fa53-40c5-99ac-efd60a4065c3
 # ╠═361176b7-b196-446f-b1ef-61b352c3d216
 # ╟─ba0fea9f-00a0-4013-bdd4-70c9fd38d96a
-# ╠═02390a36-06fe-4fb7-b00f-46461542a8aa
-# ╠═2ba578c3-1ae0-45f7-aec8-445fabf7a911
-# ╠═2b818577-8ba6-4939-b6ff-2572b169ab63
-# ╠═d516b5ed-69f9-41d7-8627-7df14a740e7c
+# ╟─02390a36-06fe-4fb7-b00f-46461542a8aa
+# ╟─2ba578c3-1ae0-45f7-aec8-445fabf7a911
+# ╟─2b818577-8ba6-4939-b6ff-2572b169ab63
+# ╠═bc3a6b2f-31ce-46d7-8840-908c2b9c5558
+# ╟─c971cff3-13b9-45a0-b954-533ebef04c81
+# ╠═b4fb8daa-4906-4b2f-9951-0a629f03478b
+# ╠═ece7daa1-e3fc-4b15-80ce-46a4b9049757
+# ╟─d516b5ed-69f9-41d7-8627-7df14a740e7c
 # ╟─3b6c88e7-6d8a-46a8-a3fb-b396c611aa09
-# ╟─f6312a2b-5aed-4867-8278-089ca7ad652b
 # ╟─a0fad932-7a89-472a-9c50-24dc771543bc
-# ╟─10af6d43-453e-46e0-b983-eb00c53e8a68
+# ╠═10af6d43-453e-46e0-b983-eb00c53e8a68
 # ╟─d9b84bdc-bec6-4c0a-b33a-fa62334c841f
 # ╟─6bbf81a9-1fa8-4b83-8663-307ed886446a
