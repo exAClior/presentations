@@ -30,30 +30,20 @@ ZX演算的基础知识。"
 
 
 * Introduction to ZX-calculus
-In the next few slides. I want to introduce the basics of ZXCalculus. On the
-first page, I will give the definition of ZXCalculus as graphical language for
-tensor network.
-
 ** ZX-calculus: the definition
-ZX-Calculus is not just a theoretical construct; it's a practical graphical
-language specifically designed for tensor networks in quantum computing. To
-fully grasp ZX-Calculus, it's essential to understand its two primary
-components.
+阐明‘演算’一词： "当我们提到‘ZX演算’时，这里的‘演算’并不是我们熟知的传统演算。它
+更接近中文的‘演算’，意味着‘依照一定的原理、公式计算’。"
 
-First, we have the ZX-Diagram. This is the visual aspect of ZX-Calculus, where
-tensor networks are represented in a graphical form. It's through these diagrams
-that we can intuitively grasp the complex relationships and operations within a
-tensor network.
+解释‘ZX’： "'ZX'在ZX演算中指的是其基本组成部分：Z和X蜘蛛。"
+Z和X蜘蛛 - 基础知识：
+"Z和X蜘蛛是ZX演算语言的核心，是参数化的张量。"
+"两个关键参数："
+"腿的数量 - 反映张量网络语言。"
+"相位参数 - 代表张量中两个非零元素之一的相位。"
+视觉表示： "这些蜘蛛在图中被可视化展示，构成我们在量子计算中图形语言的基础。"
+[过渡到下一部分]
 
-The second key component is the Rewrite Rules. These rules are what make
-ZX-Diagrams dynamic and powerful. They allow us to transform one diagram into
-another, representing different states or operations within the quantum
-computing framework. It's these rules that enable us to perform complex
-calculations and manipulations visually, making ZX-Calculus an invaluable tool
-in the realm of quantum computing
-
-Now that we understand the foundational components of ZX-Calculus, let's delve
-deeper into ZX-Diagrams and see how they visually represent tensor networks
+为下一步设定舞台： "现在我们已经掌握了基本组成部分，让我们更深入地探讨这些蜘蛛如何相互作用，形成ZX演算计算的基础。"
 
 ** ZX-Diagram
 Moving forward, let's delve into the heart of ZX-Calculus: the ZX Diagrams.

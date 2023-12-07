@@ -49,22 +49,28 @@ html"""
 # ╔═╡ 7636ca8e-04a8-443a-a7f6-e7fbd70ebce6
 TableOfContents(title="Outline",depth=1)
 
+# ╔═╡ e3469b40-b693-4230-a2f5-4e6c1b21619c
+md"""# URLS (remove it!)
+
+"""
+
 # ╔═╡ 166384c5-b083-4792-a397-2f9495a3bc7b
 begin
 	urlintro = "https://chenzhao44.github.io/assets/blog_res/ZX/QC_to_ZX.png"
 	pathintro= "figs/zxintro.png"
+	urltp = "https://t3.ftcdn.net/jpg/02/61/08/76/360_F_261087622_8eRI0TAwDAyabS1b0Uifx1wKqHzA41r3.jpg"
+	pathzsp = "figs/z-spider.png"
+	pathxsp = "figs/x-spider.png"
 end;
 
 # ╔═╡ 87538743-fed0-4db1-bc6b-a2f76b68cd5a
-md"""# Introduction to ZXCalculus
+md"""# Introduction to ZX-calculus
 ## ZX-calculus
-- Graphical Language for Tensor Network
-- explain name, what zx means, special tensors, 
-- What defines calculus : it is the stufy of change. Defines algebra on tensor network. make an example based on algebra $x^2+2xy + y^2 = (x+y)^2$
-- Components of the language:
-   1) ZX-Diagram
-   2) Rewrite rules
-$(RobustLocalResource(urlintro, pathintro,:width=>800, :alt=>"Circ2Diag", cache=false))
+- **Calculus**: "mathematical study of continuous change" [^fn1]
+- **演算**: "依照一定的原理、公式计算" [^fn2]
+- **Example**: $x^2+2xy + y^2 = (x+y)^2$
+- **Z Tensor**: $(RobustLocalResource(urltp, pathzsp,:width=>800,:align=>:center, :alt=>"Z Spider", cache=false))
+- **X Tensor**: $(RobustLocalResource(urltp, pathxsp,:width=>800,:align=>:center, :alt=>"X Spider", cache=false))
 """
 
 # ╔═╡ 706f074a-95ea-4d3a-8ef6-b355f1723a01
@@ -120,14 +126,6 @@ md"""## Rewrite Rules(Calculus)
 begin
 	pathfusion = "figs/fusion.png"
 end;
-
-# ╔═╡ 6bbf81a9-1fa8-4b83-8663-307ed886446a
-md"""## Soundness (Useless, remove)
-- **Definition of Soundness**: "A rewrite rule is sound when it preserves the underlying semantics."[^ZXWorking]
-- **Semantics in ZX-Calculus**: Representation of Linear Maps Demonstrating Soundness through ZXCalculus.jl:
-- **Example**: Fusion Rule $(RobustLocalResource(urlintro, pathfusion,:width=>300, :align=>:center, :alt=>"Translation table", cache=false))
-- Code Demonstration in ZXCalculus.jl
-"""
 
 # ╔═╡ 51b2c6b7-78f4-401e-899b-dab3bd8a4208
 begin
@@ -248,9 +246,23 @@ md"""# Summary & Credits
 Thank you!
 """
 
+# ╔═╡ f6312a2b-5aed-4867-8278-089ca7ad652b
+md"""# Footnotes (remove !)
+"""
+
 # ╔═╡ 10af6d43-453e-46e0-b983-eb00c53e8a68
 md"""
 [^ZXWorking]: van de Wetering, John. "ZX-calculus for the working quantum computer scientist." arXiv preprint arXiv:2012.13966 (2020).
+[^fn1]: https://en.wikipedia.org/wiki/Calculus
+[^fn2]: Oxford Languages
+"""
+
+# ╔═╡ 6bbf81a9-1fa8-4b83-8663-307ed886446a
+md"""## Soundness
+- **Definition of Soundness**: "A rewrite rule is sound when it preserves the underlying semantics."[^ZXWorking]
+- **Semantics in ZX-Calculus**: Representation of Linear Maps Demonstrating Soundness through ZXCalculus.jl:
+- **Example**: Fusion Rule $(RobustLocalResource(urlintro, pathfusion,:width=>300, :align=>:center, :alt=>"Translation table", cache=false))
+- Code Demonstration in ZXCalculus.jl
 """
 
 # ╔═╡ Cell order:
@@ -258,8 +270,9 @@ md"""
 # ╟─0f6ad1ea-39b2-4197-8f00-5afa55839be2
 # ╟─fe1cc35d-4372-404d-bacb-bf96e7423e23
 # ╟─7636ca8e-04a8-443a-a7f6-e7fbd70ebce6
-# ╟─166384c5-b083-4792-a397-2f9495a3bc7b
-# ╠═87538743-fed0-4db1-bc6b-a2f76b68cd5a
+# ╟─e3469b40-b693-4230-a2f5-4e6c1b21619c
+# ╠═166384c5-b083-4792-a397-2f9495a3bc7b
+# ╟─87538743-fed0-4db1-bc6b-a2f76b68cd5a
 # ╟─706f074a-95ea-4d3a-8ef6-b355f1723a01
 # ╠═9cd983bf-063c-414e-8bd9-5cb66a3524a1
 # ╟─d8c73fec-928f-4174-a737-be2e1de0589e
@@ -269,7 +282,6 @@ md"""
 # ╟─1607afe4-9e58-4211-b471-83a4c6f504aa
 # ╠═3213c733-672a-4eca-9381-1a690d666eed
 # ╟─5a01eef2-8893-4ecc-ac0b-7c1320852068
-# ╠═6bbf81a9-1fa8-4b83-8663-307ed886446a
 # ╠═3967f9c9-5f72-4406-83f0-7cd0cd9648ce
 # ╠═51b2c6b7-78f4-401e-899b-dab3bd8a4208
 # ╠═0d78bec4-e737-4eef-aa9a-b0d2bb50c309
@@ -293,4 +305,6 @@ md"""
 # ╠═2b818577-8ba6-4939-b6ff-2572b169ab63
 # ╟─d516b5ed-69f9-41d7-8627-7df14a740e7c
 # ╟─3b6c88e7-6d8a-46a8-a3fb-b396c611aa09
-# ╟─10af6d43-453e-46e0-b983-eb00c53e8a68
+# ╟─f6312a2b-5aed-4867-8278-089ca7ad652b
+# ╠═10af6d43-453e-46e0-b983-eb00c53e8a68
+# ╠═6bbf81a9-1fa8-4b83-8663-307ed886446a
