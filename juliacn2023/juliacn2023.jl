@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.29
+# v0.19.32
 
 using Markdown
 using InteractiveUtils
@@ -41,33 +41,13 @@ html"""
 		<p style="font-size: 20px;">
 			JuliaCN Winter Meetup, Shenzhen, 2023/12/09
 		</p>
+		<img src="https://cn.julialang.org/assets/infra/logo_cn.png" alt="JuliaCN Logo" style="width: 200px; height: auto;">
+		<img src="https://summer-ospp.ac.cn/help/en/assets/logo.svg" alt="OSPP Logo" style="width: 130px; height: auto;"> <br>
 	</div>
 """
 
 # ╔═╡ 7636ca8e-04a8-443a-a7f6-e7fbd70ebce6
-TableOfContents(title="Outline")
-
-# ╔═╡ 3b6c88e7-6d8a-46a8-a3fb-b396c611aa09
-begin
-	urlcz = "https://avatars.githubusercontent.com/u/50411747?v=4"
-	pathcz = "figs/ChenZhao44.jpeg"
-end;
-
-# ╔═╡ bd7c63de-cb71-41d2-ae99-8b8807513f25
-begin
-	urlrl = "https://twitter.com/rogerluorl18/photo"
-	pathrl = "figs/RogerLuo.jpg"
-end;
-
-# ╔═╡ aa055b7a-ba85-448e-8031-12ec3979e953
-md"""# Package Introduction
-- It's OSPP project
-- My mentor: Dr. Chen Zhao....
-- Background, why make this project?
-|Dr. [Chen Zhao](https://github.com/ChenZhao44) |[Xiu-zhe (Roger) Luo](https://github.com/Roger-luo)|
-|--------------|------------------|
-|$(RobustLocalResource(urlcz, pathcz,:width=>200, :alt=>"Dr. Chen Zhao", cache=false))|$(RobustLocalResource(urlrl, pathrl, :width=>200, :alt=>"Xiuzhe (Roger) Luo", cache=false))|
-"""
+TableOfContents(title="Outline",depth=1)
 
 # ╔═╡ 166384c5-b083-4792-a397-2f9495a3bc7b
 begin
@@ -202,7 +182,7 @@ end;
 mizxwd.mg
 
 # ╔═╡ 2340c1ba-d90b-4f57-9446-5d4ed8513ed6
-vizcircuit(mizxwd; verbose=true)
+vizcircuit(mizxwd; verbose=true)# white background
 
 # ╔═╡ 219bd61d-da08-4b04-b271-bc6a52c3c29b
 begin
@@ -250,8 +230,21 @@ md"""## Application
 
 """
 
+# ╔═╡ 3b6c88e7-6d8a-46a8-a3fb-b396c611aa09
+begin
+	urlcz = "https://avatars.githubusercontent.com/u/50411747?v=4"
+	pathcz = "figs/ChenZhao44.jpeg"
+	urlrl = "https://twitter.com/rogerluorl18/photo"
+	pathrl = "figs/RogerLuo.jpg"
+end;
+
 # ╔═╡ d516b5ed-69f9-41d7-8627-7df14a740e7c
-md"""# Summary
+md"""# Summary & Credits
+- Originally developed by 
+|Dr. [Chen Zhao](https://github.com/ChenZhao44) |[Xiu-zhe (Roger) Luo](https://github.com/Roger-luo)|
+|--------------|------------------|
+|$(RobustLocalResource(urlcz, pathcz,:width=>200, :alt=>"Dr. Chen Zhao", cache=false))|$(RobustLocalResource(urlrl, pathrl, :width=>200, :alt=>"Xiuzhe (Roger) Luo", cache=false))|
+- My Mentor Chen Zhao during the project
 Thank you!
 """
 
@@ -265,9 +258,6 @@ md"""
 # ╟─0f6ad1ea-39b2-4197-8f00-5afa55839be2
 # ╟─fe1cc35d-4372-404d-bacb-bf96e7423e23
 # ╟─7636ca8e-04a8-443a-a7f6-e7fbd70ebce6
-# ╟─3b6c88e7-6d8a-46a8-a3fb-b396c611aa09
-# ╟─bd7c63de-cb71-41d2-ae99-8b8807513f25
-# ╟─aa055b7a-ba85-448e-8031-12ec3979e953
 # ╟─166384c5-b083-4792-a397-2f9495a3bc7b
 # ╠═87538743-fed0-4db1-bc6b-a2f76b68cd5a
 # ╟─706f074a-95ea-4d3a-8ef6-b355f1723a01
@@ -301,5 +291,6 @@ md"""
 # ╠═02390a36-06fe-4fb7-b00f-46461542a8aa
 # ╠═2ba578c3-1ae0-45f7-aec8-445fabf7a911
 # ╠═2b818577-8ba6-4939-b6ff-2572b169ab63
-# ╠═d516b5ed-69f9-41d7-8627-7df14a740e7c
+# ╟─d516b5ed-69f9-41d7-8627-7df14a740e7c
+# ╟─3b6c88e7-6d8a-46a8-a3fb-b396c611aa09
 # ╟─10af6d43-453e-46e0-b983-eb00c53e8a68

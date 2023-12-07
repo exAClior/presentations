@@ -4,56 +4,29 @@
 
 
 * Title
-Good [morning/afternoon/evening], everyone. Thank you for joining me at the
-JuliaCN Winter Meetup. I'm Yusheng Zhao, currently affiliated with HKUST(GZ),
-and my research primarily focuses on quantum information and quantum error
-correction.
-
-Today, I'm excited to introduce you to 'ZXCalculus.jl: ZX-calculus in Julia'—a
-toolkit designed as a starter kit in graphical language for quantum computing.
-This presentation will not just be an introduction to ZX-calculus but also a
-journey through its practical applications, especially in the context of Julia.
-
-This summer, I had the opportunity to contribute to the development of the
-ZXCalculus.jl package, and I'm here to share with you the progress, insights,
-and potential of this tool in quantum computing research and applications.
+问候语： "下午，感谢大家今天的到来。"
+主题介绍： "今天，我非常高兴能与大家分享我们的项目‘ZXCalculus.jl: ZX演算在Julia中的应用’。"
+个人介绍： "我是赵宇生，香港科技大学（广州）的博士研究生，专注于量子信息，师从刘金国教授。"
+项目背景： "这个项目得到JuliaCN社区的支持，is ospp project"
+项目目的： "ZXCalculus.jl的目标是在纯Julia中实现ZX演算，从而促进量子电路的简化，提高量
+子操作的效率。"
+个人贡献： "这个夏天，我主要致力于将ZX演算扩展到其他方言，探索其在应用上的潜力，如研究量子电路波动面的应用。"
 
 * Outline
-Let's take a moment to overview what we'll cover today. Our journey begins with
-an introduction to ZX-Calculus, exploring its foundational role in quantum
-computing. We'll then bridge into how Julia, a powerful language for technical
-computing, intertwines with ZX-Calculus through the ZXCalculus.jl package.
+介绍大纲： "让我们看一下今天探索ZXCalculus.jl的路线图。"
 
-I'll take you through a deep dive into ZXCalculus.jl, discussing its key
-features, capabilities, and my personal journey in contributing to its
-development. Following this, we'll explore real-world applications of
-ZX-Calculus in quantum information and error correction, bringing theory into
-practical scenarios.
+第一主题 - ZX演算简介： "我们将从适合初学者的ZX演算入门开始。对于那些熟悉量子电
+路模型和张量网络的人来说，这将非常有洞察力。"
 
-The highlight of our session will be a hands-on demonstration where I'll convert
-theoretical concepts into executable Julia code using ZXCalculus.jl. Finally,
-we'll wrap up with a look at the future directions of ZXCalculus.jl and open the
-floor for your questions and discussions.
+第二主题 - ZXW演算： "接下来，我们将深入探讨ZX演算的‘方言’，即ZXW演算。这种变体
+为我们理解量子计算提供了额外的深度。"
 
-Now, let's embark on this exciting journey through the world of quantum
-computing with ZXCalculus.jl.
+最后主题 - 应用和示例： "我们将以ZX演算的实际应用为结束，展示在ZXCalculus.jl中实
+现的真实世界示例。" [过渡到下一部分]
 
-* Package Introduction
-Before diving into the technicalities of ZXCalculus.jl, it's important to
-acknowledge its origins. ZXCalculus.jl was initially developed as a
-collaborative effort between Dr. Chen Zhao and Dr. Xiu-zhe Roger Luo. At the
-time, Dr. Zhao was a Ph.D. student at the Chinese Academy of Sciences Institute
-of Mathematics and Systems Science, while Roger Luo was pursuing his Ph.D. at
-the University of Waterloo.
+为下一步设定舞台： "有了这个大纲作为指导，让我们开始我们的第一步：为基础理解揭开
+ZX演算的基础知识。"
 
-Their collaboration was part of the Google Summer of Code, a global program that
-offers student developers stipends to write code for various open-source
-software projects. This initiative laid the groundwork for what ZXCalculus.jl is
-today, a testament to the international and collaborative nature of software
-development in quantum computing.
-
-With this background in mind, let's delve deeper into the functionalities and
-features of ZXCalculus.jl.
 
 
 * Introduction to ZX-calculus
@@ -159,3 +132,38 @@ sequence of rewrites that can transform one diagram into the other. This
 property is crucial. It ensures that any quantum operation or state that can be
 expressed in a linear map can be fully represented and manipulated within the
 ZX-Calculus framework.
+
+
+
+Firstly, the Slide Secretary should ask the user before creation of the content
+what is the background knowledge assumed for the audiences. If the user's answer
+needs more clarification, keep asking. When this is clear, the Slide Secretary
+should have two personalities in mind. The first one is the one that is
+knowledgeable in the area the user want to present. This personality will be
+able to check the factual status of user's input. This personality will also be
+able to give suggestions on how to create slides. Another personality will be
+the one that has the same amount of background knowledge as the user prompts.
+This personality will check whether EVERY SINGLE bit of information provided in
+the slide is understandable to the users. This includes keywords, figures,
+pharses etc. The Slide Secretary will always remember to take a deep breath and
+cover the above points step by step and outputing his steps of reasoning. Just
+following the principle of "thinking aloud". Please update the configure
+according to my input. Please show me the updated version of prompt. Annotate it
+to show how each line of the prompt achieves what I ask for.
+
+* Summary and Credits
+Before diving into the technicalities of ZXCalculus.jl, it's important to
+acknowledge its origins. ZXCalculus.jl was initially developed as a
+collaborative effort between Dr. Chen Zhao and Dr. Xiu-zhe Roger Luo. At the
+time, Dr. Zhao was a Ph.D. student at the Chinese Academy of Sciences Institute
+of Mathematics and Systems Science, while Roger Luo was pursuing his Ph.D. at
+the University of Waterloo.
+
+Their collaboration was part of the Google Summer of Code, a global program that
+offers student developers stipends to write code for various open-source
+software projects. This initiative laid the groundwork for what ZXCalculus.jl is
+today, a testament to the international and collaborative nature of software
+development in quantum computing.
+
+With this background in mind, let's delve deeper into the functionalities and
+features of ZXCalculus.jl.
