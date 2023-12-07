@@ -11,6 +11,7 @@ begin
     using PlutoUI, PlutoTeachingTools
 	using BenchmarkTools, Random, Latexify
     using ZXCalculus, ZXCalculus.ZX, YaoPlots, Yao
+	using ZXCalculus.ZX: Phase
 end;
 
 # ╔═╡ 3967f9c9-5f72-4406-83f0-7cd0cd9648ce
@@ -19,6 +20,9 @@ begin
 	using ZXCalculus.ZXW:Z, add_spider!, Parameter, insert_spider!, add_edge!, rewrite!, match, insert_wtrig!, substitute_variables!
 	using ZXCalculus.Application: to_matrix
 end;
+
+# ╔═╡ c07c5b84-7bc6-40a2-ad65-9647a6280ffd
+using ZXCalculus.ZX: phase_teleportation, tcount
 
 # ╔═╡ 0f6ad1ea-39b2-4197-8f00-5afa55839be2
 ChooseDisplayMode()
@@ -73,6 +77,20 @@ begin
 	pathrl = "figs/RogerLuo.jpg"
 	pathhad = "figs/hadamard.png"
 	pathfusion = "figs/fusion.png"
+	pathscalars = "figs/scalars.png"
+	pathstatesp ="figs/state-spiders.png"
+	pathex2 = "figs/ex2.svg"
+	pathhadaedg = "figs/hadamard_edge.png"
+	pathphgad = "figs/phase_gadget.png"
+	pathlc = "figs/lc-simp.png"
+	pathp1 = "figs/p1.png"
+	pathp2 = "figs/p2.png"
+	pathp3 = "figs/p3.png"
+	pathidgf = "figs/id_gf.png"
+	pathytrig = "figs/ytriange.png"
+	pathbtrig = "figs/btriangle.png"
+	pathbtrig_sug = "figs/btrig_sugar.png"
+	pathzxw_add = "figs/addition.png"
 end;
 
 # ╔═╡ 87538743-fed0-4db1-bc6b-a2f76b68cd5a
@@ -103,6 +121,9 @@ begin
 	latexify(cnot_diagram_sem)
 end
 
+# ╔═╡ 8070ba67-191f-4a1b-bda2-e7c51da8b875
+md"""### Figure
+"""
 
 # ╔═╡ 578abf2a-7689-4ca6-97ce-f46e6d09c2f3
 vizcircuit(cnot_diagram; fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
@@ -120,6 +141,10 @@ begin
 	hadamard_diagram_sem = round.(exp(-im*π/4).*to_matrix(hadamard_diagram);digits=5)
 	latexify(hadamard_diagram_sem)
 end
+
+# ╔═╡ 7eb910f9-a0d0-4e6b-9d06-b8af4e3b8e81
+md"""### Figure
+"""
 
 # ╔═╡ 5a460cd4-3339-47e2-99ed-551cd2c6ef8d
 vizcircuit(hadamard_diagram;fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
@@ -149,102 +174,214 @@ md"""## Rewrite Rules
 
 # ╔═╡ 51b2c6b7-78f4-401e-899b-dab3bd8a4208
 begin
-	zxd = ZXWDiagram(2)
-	insert_spider!(zxd,1,2,Z(Parameter(Val(:PiUnit),1//2)))
-	insert_spider!(zxd,3,4,Z(Parameter(Val(:PiUnit),-1//2)))
-	add_edge!(zxd,5,6)
+	simp_fuse = ZXWDiagram(2)
+	insert_spider!(simp_fuse,1,2,Z(Parameter(Val(:PiUnit),1//2)))
+	insert_spider!(simp_fuse,3,4,Z(Parameter(Val(:PiUnit),-1//2)))
+	add_edge!(simp_fuse,5,6)
 end;
 
 # ╔═╡ 0d78bec4-e737-4eef-aa9a-b0d2bb50c309
-vizcircuit(zxd;fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
+vizcircuit(simp_fuse;fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
 
 # ╔═╡ bfdf1671-d300-44db-8d2b-9e5fe5cdbed3
 begin
-	zxd2 = copy(zxd)
-	matched_pos = match(Rule(:s1),zxd2)
-	zxd2 = rewrite!(Rule(:s1),zxd2,matched_pos)
+	simp_fuse_cp = copy(simp_fuse)
+	matched_pos = match(Rule(:s1),simp_fuse_cp)
+	rewrite!(Rule(:s1),simp_fuse_cp,matched_pos)
 end;
 
 # ╔═╡ 548182df-6533-4d84-8373-8e0678c3cf82
-vizcircuit(zxd2;fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
+vizcircuit(simp_fuse_cp;fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
 
 # ╔═╡ 019de6e9-c36a-4c37-86f8-6a5d4f03ebdc
-@assert to_matrix(zxd) ≈ to_matrix(zxd2)
-
-# ╔═╡ 96ac3039-6a4d-4f06-94a2-f0369ff414c3
-
+@assert to_matrix(simp_fuse) ≈ to_matrix(simp_fuse_cp)
 
 # ╔═╡ c7fe41a9-4b2d-4de4-8657-f6d1a831cfc2
 md"""## Applications
-### Understanding Magic State Injection
-- $(RobustLocalResource(urlintro, pathmag,:width=>300, :align=>:center, :alt=>"Translation table", cache=false)) 
+### Visualizing Magic State Injection
+- $(RobustLocalResource(urlintro, pathstatesp,:width=>500, :align=>:center, :alt=>"Translation table", cache=false)) 
+- $(RobustLocalResource(urlintro, pathmag,:width=>500, :align=>:center, :alt=>"Translation table", cache=false)) 
 - $(RobustLocalResource(urlintro, pathmagzx,:width=>800, :align=>:center, :alt=>"Translation table", cache=false))
 """
 
-# ╔═╡ fb8fc69c-a77f-4442-8ed3-ff1d5ae3911c
+# ╔═╡ b5a6723a-5be3-47fa-80b0-7b6da34f810d
 begin
-	mizxwd = ZXWDiagram(2)
-	push_gate!(mizxwd,Val(:Z),2,1//4)
-	push_gate!(mizxwd,Val(:CNOT),2,1)
-	push_gate!(mizxwd,Val(:Z),1,1//2)
-	push_gate!(mizxwd,Val(:X),2,1)
-end;
-
-# ╔═╡ c399194e-cd90-44ca-90ac-7c12e515d72b
-mizxwd.mg
-
-# ╔═╡ 2340c1ba-d90b-4f57-9446-5d4ed8513ed6
-vizcircuit(mizxwd; verbose=true)# white background
-
-# ╔═╡ 219bd61d-da08-4b04-b271-bc6a52c3c29b
-begin
-	mizxwd2 = copy(mizxwd)
-	mimatched_pos = match(Rule(:s1),mizxwd2)
-	println(mimatched_pos)
-	mizxwd2 = rewrite!(Rule(:s1),mizxwd2,mimatched_pos)
+	mizxd = ZXDiagram(1)
+	ZX.insert_spider!(mizxd,1,2,SpiderType.Z,Phase(0))
+	ZX.add_spider!(mizxd,SpiderType.Z,Phase(1//4),)
+	ZX.add_spider!(mizxd,SpiderType.X,Phase(0),[3,4])
+	ZX.add_spider!(mizxd,SpiderType.X,Phase(1),[5])
+	ZX.insert_spider!(mizxd,2,3,SpiderType.Z,Phase(1//2))
+	vizcircuit(mizxd;verbose=true,fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
 end
 
-# ╔═╡ ba42651d-c52b-4b5a-b9bc-88d412f24fbe
+# ╔═╡ 90cf6abb-3667-4a16-9683-c9f6f294bddc
 begin
-	mizxwd3 = copy(mizxwd)
-	mimatched_pos3 = match(Rule(:s1),mizxwd3)
-	println(mimatched_pos3)
-	mizxwd3 = rewrite!(Rule(:s1),mizxwd3,[mimatched_pos3[1]])
+	mizxd2 = copy(mizxd)
+	pos_f = match(Rule(:f),mizxd2)
+	rewrite!(Rule(:f),mizxd2,pos_f)
+	vizcircuit(mizxd2;verbose=true,fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
 end
 
-# ╔═╡ f878297f-3ce9-4011-a6d4-cd431e24b9a7
-length(mizxwd3.st)
+# ╔═╡ e1664a56-1f86-4a6b-8458-f3821cd6129b
+begin
+	pos_pi = match(Rule(:pi),mizxd2)
 
-# ╔═╡ 560545c2-51da-434a-9324-3540d9857c79
-length(mizxwd2.st)
+	rewrite!(Rule(:pi),mizxd2,[pos_pi[2]])
+	vizcircuit(mizxd2;fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
+end
 
-# ╔═╡ 1350756d-6a2b-4a15-b0e0-db8ec1baa333
-vizcircuit(mizxwd3;verbose=true)
+# ╔═╡ af65fcc7-dfcf-4eaf-8625-fea8646d887d
+begin
+	pos_f_2 = match(Rule(:f),mizxd2)
+	rewrite!(Rule(:f),mizxd2,pos_f_2)
+	vizcircuit(mizxd2;fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
+end
 
 # ╔═╡ ab4f76a8-10c5-4dee-8b99-446bb095a65c
 md"""### Circuit Simplification
-- Via Phase Teleporation
+- **Eastin–Knill theorem**: "no quantum error correcting code capable of detecting all local errors admits a universal set of transversal gates"[^StackExchange].
+- **Transversal gates**: "a logical gate that can be implemented on a logical qubit by the independent action of separate physical gates on corresponding physical qubits"[^EKWiki].
+- **Clifford gates**: generated by CNOT, H, S which are implementable by error correction codes such as the Steane code [^TheBible].
+- **T gate**: can be implemented using costly magic state injection and distillation.[^MagicCosts]
+"""
+
+# ╔═╡ 6efeb0f0-17a4-4597-b4de-0ec886f0104d
+md"""#### Phase Teleportation[^PhaseTele]
+- **Hadamard Edge**: $(RobustLocalResource(urlintro, pathhadaedg,:width=>800, :align=>:center, :alt=>"Translation table", cache=false))
+- **Phase Gadget**: $(RobustLocalResource(urlintro, pathphgad,:width=>300, :align=>:center, :alt=>"Translation table", cache=false))
+- **Pauli vertices**: Tensors whose phase is a multiple of $\pi$.
+- **Clifford vertices**: Tensors whose phase is a multiple of $\pi/2$.
+- **Proper Clifford vertices**: Tensors whose phase is odd multiple of $\pi/2$.
+- **Interior vertices**: A Tensor that is not connecting to an input or output spider.
+- **Clifford phase-gadget**: Phase-gadgets with phases that is a multiple of $\pi/2$.
+"""
+
+# ╔═╡ 94e38c96-70fe-4033-ab0a-1ab4a65161cd
+md"""#### Algorithm
+1. Apply [^LC] until all interior profer Clifford vertices are removed.
+2. Apply [^P1], [^P2], [^P3] until all interior Pauli vertices are removed or transformed into phase-gadgets
+3. Remove all Clifford phase-gadgets using [^LC], [^P1].
+4. Apply [^IDGF] wherever possible. If found match, go to step 1 and repeat. Otherwise, done.
+"""
+
+# ╔═╡ 50f18c98-a904-4dd3-8311-1c3258e4c833
+function generate_example2()
+    cir = ZXDiagram(5)
+    push_gate!(cir, Val(:X), 5, 1//1)
+    push_gate!(cir, Val(:H), 5)
+    push_gate!(cir, Val(:Z), 5)
+    push_gate!(cir, Val(:CNOT), 5, 4)
+    push_gate!(cir, Val(:Z), 5, 7//4)
+    push_gate!(cir, Val(:CNOT), 5, 1)
+    push_gate!(cir, Val(:Z), 5, 1//4)
+    push_gate!(cir, Val(:CNOT), 5, 4)
+    push_gate!(cir, Val(:Z), 4, 1//4)
+    push_gate!(cir, Val(:Z), 5, 7//4)
+    push_gate!(cir, Val(:CNOT), 5, 1)
+    push_gate!(cir, Val(:CNOT), 4, 1)
+    push_gate!(cir, Val(:Z), 5, 1//4)
+    push_gate!(cir, Val(:Z), 1, 1//4)
+    push_gate!(cir, Val(:Z), 4, 7//4)
+    push_gate!(cir, Val(:CNOT), 4, 1)
+    push_gate!(cir, Val(:CNOT), 5, 4)
+    push_gate!(cir, Val(:Z), 5, 7//4)
+    push_gate!(cir, Val(:CNOT), 5, 3)
+    push_gate!(cir, Val(:Z), 5, 1//4)
+    push_gate!(cir, Val(:CNOT), 5, 4)
+    push_gate!(cir, Val(:Z), 4, 1//4)
+    push_gate!(cir, Val(:Z), 5, 7//4)
+    push_gate!(cir, Val(:CNOT), 5, 3)
+    push_gate!(cir, Val(:CNOT), 4, 3)
+    push_gate!(cir, Val(:Z), 5, 1//4)
+    push_gate!(cir, Val(:Z), 3, 1//4)
+    push_gate!(cir, Val(:Z), 4, 7//4)
+    push_gate!(cir, Val(:H), 5)
+    push_gate!(cir, Val(:Z), 5)
+    push_gate!(cir, Val(:CNOT), 4, 3)
+    push_gate!(cir, Val(:CNOT), 5, 4)
+    push_gate!(cir, Val(:H), 5)
+    push_gate!(cir, Val(:Z), 5)
+    push_gate!(cir, Val(:CNOT), 5, 3)
+    push_gate!(cir, Val(:Z), 5, 7//4)
+    push_gate!(cir, Val(:CNOT), 5, 2)
+    push_gate!(cir, Val(:Z), 5, 1//4)
+    push_gate!(cir, Val(:CNOT), 5, 3)
+    push_gate!(cir, Val(:Z), 3, 1//4)
+    push_gate!(cir, Val(:Z), 5, 7//4)
+    push_gate!(cir, Val(:CNOT), 5, 2)
+    push_gate!(cir, Val(:CNOT), 3, 2)
+    push_gate!(cir, Val(:Z), 5, 1//4)
+    push_gate!(cir, Val(:H), 5)
+    push_gate!(cir, Val(:Z), 2, 1//4)
+    push_gate!(cir, Val(:Z), 3, 7//4)
+    push_gate!(cir, Val(:Z), 5)
+    push_gate!(cir, Val(:CNOT), 3, 2)
+    push_gate!(cir, Val(:CNOT), 5, 3)
+    push_gate!(cir, Val(:H), 5)
+    push_gate!(cir, Val(:Z), 5)
+    push_gate!(cir, Val(:CNOT), 5, 2)
+    push_gate!(cir, Val(:Z), 5, 7//4)
+    push_gate!(cir, Val(:CNOT), 5, 1)
+    push_gate!(cir, Val(:Z), 5, 1//4)
+    push_gate!(cir, Val(:CNOT), 5, 2)
+    push_gate!(cir, Val(:Z), 2, 1//4)
+    push_gate!(cir, Val(:Z), 5, 7//4)
+    push_gate!(cir, Val(:CNOT), 5, 1)
+    push_gate!(cir, Val(:CNOT), 2, 1)
+    push_gate!(cir, Val(:Z), 5, 1//4)
+    push_gate!(cir, Val(:Z), 1, 1//4)
+    push_gate!(cir, Val(:Z), 2, 7//4)
+    push_gate!(cir, Val(:H), 5)
+    push_gate!(cir, Val(:Z), 5)
+    push_gate!(cir, Val(:CNOT), 2, 1)
+    push_gate!(cir, Val(:CNOT), 5, 2)
+    push_gate!(cir, Val(:CNOT), 5, 1)
+    return cir
+end
+
+
+# ╔═╡ 4cdea696-e04b-46f2-8851-e1aeaab1a59a
+zxd = generate_example2();
+
+# ╔═╡ 96681a44-4d37-400f-9a15-464f3cb6b699
+md"""
+$(RobustLocalResource(urlintro, pathex2,:width=>800, :align=>:center, :alt=>"Ex2 Circuit", cache=false))
+"""
+
+# ╔═╡ 64243e63-fa53-40c5-99ac-efd60a4065c3
+zxd_reduced = phase_teleportation(zxd);
+
+# ╔═╡ 361176b7-b196-446f-b1ef-61b352c3d216
+@benchmark phase_teleportation(zxd)
+
+# ╔═╡ ba0fea9f-00a0-4013-bdd4-70c9fd38d96a
+md"""##### Result
+Reduced number of T gates from $(tcount(zxd)) to $(tcount(zxd_reduced)).
 """
 
 # ╔═╡ 02390a36-06fe-4fb7-b00f-46461542a8aa
-md"""# ZXW-Calculus: Other Flavors of graphical Language
-- Why need other flavors of Calculus
+md"""# ZXW-Calculus: A Dialect
+- **Triangle**: $(RobustLocalResource(urlintro, pathytrig,:width=>100, :align=>:center, :alt=>"W Spider", cache=false))
+- **W Spider**:  $(RobustLocalResource(urlintro, pathbtrig,:width=>400, :align=>:center, :alt=>"W Spider", cache=false))
+- **Syntax Sugar**: $(RobustLocalResource(urlintro, pathbtrig_sug,:width=>100, :align=>:center, :alt=>"W Spider", cache=false))
 """
 
 # ╔═╡ 2ba578c3-1ae0-45f7-aec8-445fabf7a911
-md"""## Extra Spiders
+md"""## Rewrite Rules
+- $\frac{\partial (f(x)g(x)h(x))}{\partial x} = \frac{\partial f(x)}{\partial x}g(x)h(x) + \frac{\partial g(x)}{\partial x}f(x)h(x) + \frac{\partial h(x)}{\partial x}f(x)g(x)$
+- **Addition of Linear Maps**: $(RobustLocalResource(urlintro, pathzxw_add,:width=>400, :align=>:center, :alt=>"W Spider", cache=false))
 
 """
 
 # ╔═╡ 2b818577-8ba6-4939-b6ff-2572b169ab63
-md"""## Application
-- gradient calculation
+md"""## Application: Barren Plateau Detection
 
 """
 
 # ╔═╡ d516b5ed-69f9-41d7-8627-7df14a740e7c
 md"""# Summary & Credits
-- Authors of ZXCalculus: 
+- Authors of ZXCalculus.jl: 
 |Dr. [Chen Zhao](https://github.com/ChenZhao44) |[Xiu-zhe (Roger) Luo](https://github.com/Roger-luo)|
 |--------------|------------------|
 |$(RobustLocalResource(urlcz, pathcz,:width=>200, :alt=>"Dr. Chen Zhao", cache=false))|$(RobustLocalResource(urlrl, pathrl, :width=>200, :alt=>"Xiuzhe (Roger) Luo", cache=false))|
@@ -259,13 +396,39 @@ md"""# Summary & Credits
 md"""# Footnotes (remove !)
 """
 
+# ╔═╡ a0fad932-7a89-472a-9c50-24dc771543bc
+md"""## Rules
+[^LC]: 
+$(RobustLocalResource(urlcz, pathlc,:width=>500, :alt=>"LC rule", cache=false))
+[^P1]:
+$(RobustLocalResource(urlcz, pathp1,:width=>500, :alt=>"P1", cache=false))
+[^P2]: 
+$(RobustLocalResource(urlcz, pathp2,:width=>500, :alt=>"P2", cache=false))
+[^P3]: 
+$(RobustLocalResource(urlcz, pathp3,:width=>500, :alt=>"P3", cache=false))
+[^IDGF]: 
+$(RobustLocalResource(urlcz, pathidgf,:width=>500, :alt=>"idgf", cache=false))
+"""
+
 # ╔═╡ 10af6d43-453e-46e0-b983-eb00c53e8a68
 md"""
 [^ZXWorking]: van de Wetering, John. "ZX-calculus for the working quantum computer scientist." arXiv preprint arXiv:2012.13966 (2020).
 [^LMUniv]: Coecke, Bob, and Ross Duncan. "Interacting quantum observables: categorical algebra and diagrammatics." New Journal of Physics 13.4 (2011): 043016.
 [^CircExtra]: Coecke, Bob, and Ross Duncan. "Interacting quantum observables: categorical algebra and diagrammatics." New Journal of Physics 13.4 (2011): 043016.
+[^PhaseTele]: Kissinger, Aleks and John van de Wetering. “Reducing T-count with the ZX-calculus.” (2019).
+[^TheBible]: Nielsen, Michael A., and Isaac L. Chuang. Quantum Computation and Quantum Information: 10th Anniversary Edition. Cambridge: Cambridge UP, 2010. Print.
+[^EKThm]: Eastin, Bryan and Emanuel Knill. “Restrictions on transversal encoded quantum gate sets.” Physical review letters 102 11 (2008): 110502 .
+[^MagicCosts]: Campbell, Earl T. et al. “Roads towards fault-tolerant universal quantum computation.” Nature 549 (2016): 172-179.
+[^DiffInt]: Wang, Quanlong and Richie Yeung. “Differentiating and Integrating ZX Diagrams.” ArXiv abs/2201.13250 (2022): n. pag.
+[^StackExchange]: https://quantumcomputing.stackexchange.com/a/28058/5116
+[^EKWiki]: https://en.wikipedia.org/wiki/Eastin%E2%80%93Knill_theorem
 [^fn1]: https://en.wikipedia.org/wiki/Calculus
 [^fn2]: Oxford Languages
+"""
+
+# ╔═╡ d9b84bdc-bec6-4c0a-b33a-fa62334c841f
+md"""## Scalars
+$(RobustLocalResource(urltp, pathscalars,:width=>500, :align=>:center, :alt=>"Translation table", cache=false))
 """
 
 # ╔═╡ 6bbf81a9-1fa8-4b83-8663-307ed886446a
@@ -277,19 +440,21 @@ md"""## Soundness
 """
 
 # ╔═╡ Cell order:
-# ╟─5b60b904-918c-11ee-2d1b-c382c891cbb8
+# ╠═5b60b904-918c-11ee-2d1b-c382c891cbb8
 # ╟─0f6ad1ea-39b2-4197-8f00-5afa55839be2
 # ╟─fe1cc35d-4372-404d-bacb-bf96e7423e23
 # ╟─7636ca8e-04a8-443a-a7f6-e7fbd70ebce6
 # ╟─e3469b40-b693-4230-a2f5-4e6c1b21619c
 # ╠═166384c5-b083-4792-a397-2f9495a3bc7b
-# ╠═87538743-fed0-4db1-bc6b-a2f76b68cd5a
+# ╟─87538743-fed0-4db1-bc6b-a2f76b68cd5a
 # ╟─6330319d-9425-4619-95cc-7f5bd7eca9bf
 # ╟─b202bd88-2cb7-4a61-b0e1-58fe28f86694
 # ╠═706f074a-95ea-4d3a-8ef6-b355f1723a01
+# ╟─8070ba67-191f-4a1b-bda2-e7c51da8b875
 # ╠═578abf2a-7689-4ca6-97ce-f46e6d09c2f3
 # ╟─07d1c636-d75d-4cf9-bd6f-6ff7ad3c71f9
 # ╠═70f24e1d-e9b9-469d-bdfe-5ac58c2cc3b3
+# ╟─7eb910f9-a0d0-4e6b-9d06-b8af4e3b8e81
 # ╠═5a460cd4-3339-47e2-99ed-551cd2c6ef8d
 # ╟─ca74bef6-1c75-4d55-8b84-e309a9fecf2a
 # ╟─11f63c7e-f648-4f1d-b09d-3ec15a613174
@@ -300,22 +465,28 @@ md"""## Soundness
 # ╠═bfdf1671-d300-44db-8d2b-9e5fe5cdbed3
 # ╠═548182df-6533-4d84-8373-8e0678c3cf82
 # ╠═019de6e9-c36a-4c37-86f8-6a5d4f03ebdc
-# ╟─96ac3039-6a4d-4f06-94a2-f0369ff414c3
-# ╟─c7fe41a9-4b2d-4de4-8657-f6d1a831cfc2
-# ╠═fb8fc69c-a77f-4442-8ed3-ff1d5ae3911c
-# ╠═c399194e-cd90-44ca-90ac-7c12e515d72b
-# ╠═2340c1ba-d90b-4f57-9446-5d4ed8513ed6
-# ╠═219bd61d-da08-4b04-b271-bc6a52c3c29b
-# ╠═ba42651d-c52b-4b5a-b9bc-88d412f24fbe
-# ╠═f878297f-3ce9-4011-a6d4-cd431e24b9a7
-# ╠═560545c2-51da-434a-9324-3540d9857c79
-# ╠═1350756d-6a2b-4a15-b0e0-db8ec1baa333
+# ╠═c7fe41a9-4b2d-4de4-8657-f6d1a831cfc2
+# ╠═b5a6723a-5be3-47fa-80b0-7b6da34f810d
+# ╠═90cf6abb-3667-4a16-9683-c9f6f294bddc
+# ╠═e1664a56-1f86-4a6b-8458-f3821cd6129b
+# ╠═af65fcc7-dfcf-4eaf-8625-fea8646d887d
 # ╟─ab4f76a8-10c5-4dee-8b99-446bb095a65c
+# ╟─6efeb0f0-17a4-4597-b4de-0ec886f0104d
+# ╟─94e38c96-70fe-4033-ab0a-1ab4a65161cd
+# ╠═c07c5b84-7bc6-40a2-ad65-9647a6280ffd
+# ╟─50f18c98-a904-4dd3-8311-1c3258e4c833
+# ╠═4cdea696-e04b-46f2-8851-e1aeaab1a59a
+# ╠═96681a44-4d37-400f-9a15-464f3cb6b699
+# ╠═64243e63-fa53-40c5-99ac-efd60a4065c3
+# ╠═361176b7-b196-446f-b1ef-61b352c3d216
+# ╟─ba0fea9f-00a0-4013-bdd4-70c9fd38d96a
 # ╠═02390a36-06fe-4fb7-b00f-46461542a8aa
 # ╠═2ba578c3-1ae0-45f7-aec8-445fabf7a911
 # ╠═2b818577-8ba6-4939-b6ff-2572b169ab63
-# ╟─d516b5ed-69f9-41d7-8627-7df14a740e7c
+# ╠═d516b5ed-69f9-41d7-8627-7df14a740e7c
 # ╟─3b6c88e7-6d8a-46a8-a3fb-b396c611aa09
 # ╟─f6312a2b-5aed-4867-8278-089ca7ad652b
-# ╠═10af6d43-453e-46e0-b983-eb00c53e8a68
-# ╠═6bbf81a9-1fa8-4b83-8663-307ed886446a
+# ╟─a0fad932-7a89-472a-9c50-24dc771543bc
+# ╟─10af6d43-453e-46e0-b983-eb00c53e8a68
+# ╟─d9b84bdc-bec6-4c0a-b33a-fa62334c841f
+# ╟─6bbf81a9-1fa8-4b83-8663-307ed886446a
