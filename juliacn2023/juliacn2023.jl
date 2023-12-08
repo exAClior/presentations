@@ -68,6 +68,8 @@ begin
 	pathintro= "figs/zxintro.png"
 	pathzsp = "figs/z-spider.png"
 	pathxsp = "figs/x-spider.png"
+	pathzspbk = "figs/Zspbk.png"
+	pathxspbk = "figs/Xspbk.png"
 	pathzxrule = "figs/ZX-rules.png"
 	pathspds = "figs/spiders.png"
 	pathtable = "figs/table.png"
@@ -97,6 +99,7 @@ begin
 	pathftH = "figs/ftH.png"
 	pathftcx = "figs/ftcx.png"
 	
+	
 end;
 
 # ╔═╡ 87538743-fed0-4db1-bc6b-a2f76b68cd5a
@@ -105,8 +108,8 @@ md"""# Introduction to ZX-calculus
 - **Calculus**: "mathematical study of continuous change" [^fn1]
 - **演算**: "依照一定的原理、公式计算" [^fn2]
 - **Example**: $\cos(\theta)^2 + \sin(\theta)^2 = 1$
-- **Z Tensor(change to braket)**: $(RobustLocalResource(urltp, pathzsp,:width=>800,:align=>:center, :alt=>"Z Spider", cache=false))
-- **X Tensor**: $(RobustLocalResource(urltp, pathxsp,:width=>800,:align=>:center, :alt=>"X Spider", cache=false))
+- **Z Tensor**: $(RobustLocalResource(urltp, pathzspbk,:width=>800,:align=>:center, :alt=>"Z Spider", cache=false))
+- **X Tensor**: $(RobustLocalResource(urltp, pathxspbk,:width=>800,:align=>:center, :alt=>"X Spider", cache=false))
 """
 
 # ╔═╡ 6330319d-9425-4619-95cc-7f5bd7eca9bf
@@ -115,59 +118,106 @@ md"""## Gates to ZX-Tensors
 - **Syntax Sugar**: $(RobustLocalResource(urltp, pathhad,:width=>300, :align=>:center, :alt=>"Translation table", cache=false))
 """
 
-# ╔═╡ 535a5ea4-6395-4853-a40f-a7a3ae03e014
-md"""
-convert each spider to matrix, perform multiplication
-"""
-
-# ╔═╡ b202bd88-2cb7-4a61-b0e1-58fe28f86694
-md"""## CNOT
-"""
-
-# ╔═╡ 706f074a-95ea-4d3a-8ef6-b355f1723a01
-begin
-	cnot_diagram = ZXWDiagram(2)
-	push_gate!(cnot_diagram,Val(:CNOT),1,2)
-	cnot_diagram_sem = round.(to_matrix(cnot_diagram);digits=5)
-	latexify(cnot_diagram_sem)
-end
-
-# ╔═╡ 8070ba67-191f-4a1b-bda2-e7c51da8b875
-md"""### Figure
-"""
-
-# ╔═╡ 578abf2a-7689-4ca6-97ce-f46e6d09c2f3
-vizcircuit(cnot_diagram; fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
-
 # ╔═╡ 07d1c636-d75d-4cf9-bd6f-6ff7ad3c71f9
-md"""## Hadamard
+md"""### Hadamard Example
+- $e^{i\pi/2} = i$ 
+```math
+\begin{equation}
+|0\rangle\langle0| + e^{i\pi/2} |1\rangle\langle1| = 
+\left[
+\begin{array}{cc}
+1.0+0.0\mathit{i} & 0.0\mathit{i} \\
+0.0\mathit{i} & \mathit{i} \\
+\end{array}
+\right]
+\end{equation}
+```
+-
+```math
+\begin{equation}
+|+\rangle\langle+| = 
+\begin{pmatrix}
+1/\sqrt{2} \\
+1/\sqrt{2} 
+\end{pmatrix}
+\begin{pmatrix}
+1/\sqrt{2} & 1/\sqrt{2}
+\end{pmatrix}
+=
+\left[
+\begin{array}{cc}
+0.5 & 0.5 \\
+0.5 & 0.5 \\
+\end{array}
+\right]
+\end{equation}
+```
+```math
+\begin{equation}
+|-\rangle\langle-| = 
+\begin{pmatrix}
+1/\sqrt{2} \\
+-1/\sqrt{2} 
+\end{pmatrix}
+\begin{pmatrix}
+1/\sqrt{2} & -1/\sqrt{2}
+\end{pmatrix}
+=
+\left[
+\begin{array}{cc}
+0.5 & -0.5 \\
+-0.5 & 0.5 \\
+\end{array}
+\right]
+\end{equation}
+```
+```math
+|+\rangle\langle+| + e^{i\pi/2} |-\rangle\langle-| = \left[
+\begin{array}{cc}
+0.5+0.5\mathit{i} & 0.5-0.5\mathit{i} \\
+0.5-0.5\mathit{i} & 0.5+0.5\mathit{i} \\
+\end{array}
+\right]
+```
+- 
+```math
+\left[
+\begin{array}{cc}
+1.0+0.0\mathit{i} & 0.0\mathit{i} \\
+0.0\mathit{i} & \mathit{i} \\
+\end{array}
+\right] \times
+\left[
+\begin{array}{cc}
+0.5+0.5\mathit{i} & 0.5-0.5\mathit{i} \\
+0.5-0.5\mathit{i} & 0.5+0.5\mathit{i} \\
+\end{array}
+\right] \times
+\left[
+\begin{array}{cc}
+1.0+0.0\mathit{i} & 0.0\mathit{i} \\
+0.0\mathit{i} & \mathit{i} \\
+\end{array}
+\right] = ?
+```
 """
 
-# ╔═╡ 70f24e1d-e9b9-469d-bdfe-5ac58c2cc3b3
+# ╔═╡ 17b4a589-c546-4c30-869b-9bd1a104c8eb
 begin
-	hadamard_diagram = ZXWDiagram(1)
-	push_gate!(hadamard_diagram,Val(:Z),1,1//2)
-	g1 = to_matrix(hadamard_diagram)
-	push_gate!(hadamard_diagram,Val(:X),1,1//2)
-	g2 = to_matrix(hadamard_diagram)
-
-	push_gate!(hadamard_diagram,Val(:Z),1,1//2)
-	hadamard_diagram_sem = round.(exp(-im*π/4).*to_matrix(hadamard_diagram);digits=5)
-	latexify(hadamard_diagram_sem)
+	zpi2_mtx = [1 0; 0 im]
+	xpi2_mtx = [0.5 + 0.5 *im 0.5 - 0.5 * im; 0.5 - 0.5*im 0.5 + 0.5 * im]
+	latexify(round.(exp(-im*π/4).*zpi2_mtx * xpi2_mtx * zpi2_mtx;digits=5))
 end
-
-# ╔═╡ 7eb910f9-a0d0-4e6b-9d06-b8af4e3b8e81
-md"""### Figure
-"""
-
-# ╔═╡ 5a460cd4-3339-47e2-99ed-551cd2c6ef8d
-vizcircuit(hadamard_diagram;fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
 
 # ╔═╡ ca74bef6-1c75-4d55-8b84-e309a9fecf2a
 md"""## Universality
-- Quantum Circuits
-- Arbitrary Linear Map: $2^n \rightarrow 2^m$ too! [^LMUniv]
-- "Circuit Extraction is #P-hard" [^CircExtra]
+* **Universality**: Using X and Z Tensors, we can represent _everything_!
+
+1. Every Quantum Circuit
+
+2. Arbitrary Linear Map: $2^n \rightarrow 2^m$ too! [^LMUniv]
+
+* "Circuit Extraction is #P-hard" [^CircExtra]
 """
 
 # ╔═╡ 11f63c7e-f648-4f1d-b09d-3ec15a613174
@@ -253,7 +303,6 @@ end
 # ╔═╡ e1664a56-1f86-4a6b-8458-f3821cd6129b
 begin
 	pos_pi = match(Rule(:pi),mizxd2)
-
 	rewrite!(Rule(:pi),mizxd2,[pos_pi[2]])
 	vizcircuit(mizxd2;fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
 end
@@ -360,7 +409,6 @@ function generate_example2()
     return cir
 end
 
-
 # ╔═╡ 4cdea696-e04b-46f2-8851-e1aeaab1a59a
 zxd = generate_example2();
 
@@ -372,9 +420,6 @@ $(RobustLocalResource(urlintro, pathex2,:width=>800, :align=>:center, :alt=>"Ex2
 # ╔═╡ 64243e63-fa53-40c5-99ac-efd60a4065c3
 zxd_reduced = phase_teleportation(zxd);
 
-# ╔═╡ 361176b7-b196-446f-b1ef-61b352c3d216
-@benchmark phase_teleportation(zxd)
-
 # ╔═╡ ba0fea9f-00a0-4013-bdd4-70c9fd38d96a
 md"""##### Result
 Reduced number of T gates from $(tcount(zxd)) to $(tcount(zxd_reduced)).
@@ -383,8 +428,9 @@ Reduced number of T gates from $(tcount(zxd)) to $(tcount(zxd_reduced)).
 # ╔═╡ 02390a36-06fe-4fb7-b00f-46461542a8aa
 md"""# ZXW-Calculus: A Dialect
 - **Triangle**: $(RobustLocalResource(urlintro, pathytrig,:width=>100, :align=>:center, :alt=>"W Spider", cache=false))
+- **W Tensor**: $(RobustLocalResource(urlintro, pathbtrig_sug,:width=>100, :align=>:center, :alt=>"W Spider", cache=false))
 - **W Spider**:  $(RobustLocalResource(urlintro, pathbtrig,:width=>400, :align=>:center, :alt=>"W Spider", cache=false))
-- **Syntax Sugar**: $(RobustLocalResource(urlintro, pathbtrig_sug,:width=>100, :align=>:center, :alt=>"W Spider", cache=false))
+
 """
 
 # ╔═╡ 2ba578c3-1ae0-45f7-aec8-445fabf7a911
@@ -447,15 +493,12 @@ end
 # ╔═╡ d516b5ed-69f9-41d7-8627-7df14a740e7c
 md"""# Summary & Credits
 - Authors of ZXCalculus.jl: 
-|Dr. [Chen Zhao](https://github.com/ChenZhao44) |[Xiu-zhe (Roger) Luo](https://github.com/Roger-luo)|
+|[Dr. Chen Zhao](https://github.com/ChenZhao44) |[Xiu-zhe (Roger) Luo](https://github.com/Roger-luo)|
 |--------------|------------------|
 |$(RobustLocalResource(urlcz, pathcz,:width=>200, :alt=>"Dr. Chen Zhao", cache=false))|$(RobustLocalResource(urlrl, pathrl, :width=>200, :alt=>"Xiuzhe (Roger) Luo", cache=false))|
 - Dr. Chen Zhao mentored me during the OSPP project
 - _Thank you for your attention_!
 """
-
-# ╔═╡ 3b6c88e7-6d8a-46a8-a3fb-b396c611aa09
-
 
 # ╔═╡ a0fad932-7a89-472a-9c50-24dc771543bc
 md"""## Rules
@@ -484,7 +527,7 @@ md"""
 [^BarrenPlateau]:Zhao, Chen and Xiao-Shan Gao. “Analyzing the barren plateau phenomenon in training quantum neural network with the ZX-calculus.” Quantum 5 (2021): 466.
 [^StackExchange]: https://quantumcomputing.stackexchange.com/a/28058/5116
 [^EKWiki]: https://en.wikipedia.org/wiki/Eastin%E2%80%93Knill_theorem
-[^BKDistill]: ???
+[^BKDistill]: Bravyi, S. B. and Alexei Y. Kitaev. “Universal quantum computation with ideal Clifford gates and noisy ancillas (14 pages).” Physical Review A 71 (2004): 22316.
 [^fn1]: https://en.wikipedia.org/wiki/Calculus
 [^fn2]: Oxford Languages
 """
@@ -502,6 +545,12 @@ md"""## Soundness
 - Code Demonstration in ZXCalculus.jl
 """
 
+# ╔═╡ 3ecbc8ad-24fb-4282-a9d1-9ebb3eb09bce
+md"""## Z,X Tensor for Tensor Network People
+- **Z Tensor**: $(RobustLocalResource(urltp, pathzsp,:width=>800,:align=>:center, :alt=>"Z Spider", cache=false))
+- **X Tensor**: $(RobustLocalResource(urltp, pathxsp,:width=>800,:align=>:center, :alt=>"X Spider", cache=false))
+"""
+
 # ╔═╡ fd895c02-71f1-45f4-a7c9-cd0df0af4776
 md"""## Triangle and W Spider
 - W spider: W state, preparable by quantum circuit, expressible by ZX
@@ -509,28 +558,53 @@ md"""## Triangle and W Spider
 
 """
 
+# ╔═╡ b202bd88-2cb7-4a61-b0e1-58fe28f86694
+md"""## CNOT
+"""
+
+# ╔═╡ 0962ab0b-e3ca-486f-b730-ea705aa03989
+begin
+	cnot_diagram = ZXWDiagram(2)
+	push_gate!(cnot_diagram,Val(:CNOT),1,2)
+	cnot_diagram_sem = round.(to_matrix(cnot_diagram);digits=5)
+	latexify(cnot_diagram_sem)
+end
+
+# ╔═╡ 970c9aaf-9204-47b0-adef-202089d05e98
+vizcircuit(cnot_diagram; fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
+
+# ╔═╡ 3d6d38d4-93e2-4f0d-a835-949a215a0654
+md"""### Hadamard
+"""
+
+# ╔═╡ c1c2c611-cc62-4f0c-9ba7-66bff0be10fe
+begin
+	hadamard_diagram = ZXWDiagram(1)
+	push_gate!(hadamard_diagram,Val(:Z),1,1//2)
+	push_gate!(hadamard_diagram,Val(:X),1,1//2)
+	push_gate!(hadamard_diagram,Val(:Z),1,1//2)
+	hadamard_diagram_sem = round.(exp(-im*π/4).*to_matrix(hadamard_diagram);digits=5)
+	latexify(hadamard_diagram_sem)
+end
+
+# ╔═╡ 1197d270-506f-4366-b000-e8da15446a70
+vizcircuit(hadamard_diagram;fontsize=15,bgcolor="white",linewidth=5,circsize=20,vrot=0.0)
+
 # ╔═╡ Cell order:
-# ╠═5b60b904-918c-11ee-2d1b-c382c891cbb8
+# ╟─5b60b904-918c-11ee-2d1b-c382c891cbb8
 # ╟─0f6ad1ea-39b2-4197-8f00-5afa55839be2
 # ╟─fe1cc35d-4372-404d-bacb-bf96e7423e23
 # ╟─7636ca8e-04a8-443a-a7f6-e7fbd70ebce6
 # ╟─166384c5-b083-4792-a397-2f9495a3bc7b
-# ╠═87538743-fed0-4db1-bc6b-a2f76b68cd5a
+# ╟─87538743-fed0-4db1-bc6b-a2f76b68cd5a
 # ╟─6330319d-9425-4619-95cc-7f5bd7eca9bf
-# ╟─535a5ea4-6395-4853-a40f-a7a3ae03e014
-# ╟─b202bd88-2cb7-4a61-b0e1-58fe28f86694
-# ╠═706f074a-95ea-4d3a-8ef6-b355f1723a01
-# ╟─8070ba67-191f-4a1b-bda2-e7c51da8b875
-# ╟─578abf2a-7689-4ca6-97ce-f46e6d09c2f3
 # ╟─07d1c636-d75d-4cf9-bd6f-6ff7ad3c71f9
-# ╠═70f24e1d-e9b9-469d-bdfe-5ac58c2cc3b3
-# ╟─7eb910f9-a0d0-4e6b-9d06-b8af4e3b8e81
-# ╟─5a460cd4-3339-47e2-99ed-551cd2c6ef8d
+# ╠═17b4a589-c546-4c30-869b-9bd1a104c8eb
 # ╟─ca74bef6-1c75-4d55-8b84-e309a9fecf2a
 # ╟─11f63c7e-f648-4f1d-b09d-3ec15a613174
 # ╟─3213c733-672a-4eca-9381-1a690d666eed
 # ╟─3967f9c9-5f72-4406-83f0-7cd0cd9648ce
-# ╠═51b2c6b7-78f4-401e-899b-dab3bd8a4208
+# ╟─51b2c6b7-78f4-401e-899b-dab3bd8a4208
 # ╠═0d78bec4-e737-4eef-aa9a-b0d2bb50c309
 # ╠═bfdf1671-d300-44db-8d2b-9e5fe5cdbed3
 # ╠═548182df-6533-4d84-8373-8e0678c3cf82
@@ -544,13 +618,12 @@ md"""## Triangle and W Spider
 # ╟─6efeb0f0-17a4-4597-b4de-0ec886f0104d
 # ╟─94e38c96-70fe-4033-ab0a-1ab4a65161cd
 # ╠═c07c5b84-7bc6-40a2-ad65-9647a6280ffd
-# ╟─50f18c98-a904-4dd3-8311-1c3258e4c833
+# ╠═50f18c98-a904-4dd3-8311-1c3258e4c833
 # ╠═4cdea696-e04b-46f2-8851-e1aeaab1a59a
 # ╟─96681a44-4d37-400f-9a15-464f3cb6b699
 # ╠═64243e63-fa53-40c5-99ac-efd60a4065c3
-# ╠═361176b7-b196-446f-b1ef-61b352c3d216
 # ╟─ba0fea9f-00a0-4013-bdd4-70c9fd38d96a
-# ╟─02390a36-06fe-4fb7-b00f-46461542a8aa
+# ╠═02390a36-06fe-4fb7-b00f-46461542a8aa
 # ╟─2ba578c3-1ae0-45f7-aec8-445fabf7a911
 # ╟─2b818577-8ba6-4939-b6ff-2572b169ab63
 # ╠═bc3a6b2f-31ce-46d7-8840-908c2b9c5558
@@ -558,9 +631,15 @@ md"""## Triangle and W Spider
 # ╠═b4fb8daa-4906-4b2f-9951-0a629f03478b
 # ╠═ece7daa1-e3fc-4b15-80ce-46a4b9049757
 # ╟─d516b5ed-69f9-41d7-8627-7df14a740e7c
-# ╟─3b6c88e7-6d8a-46a8-a3fb-b396c611aa09
 # ╟─a0fad932-7a89-472a-9c50-24dc771543bc
-# ╠═10af6d43-453e-46e0-b983-eb00c53e8a68
+# ╟─10af6d43-453e-46e0-b983-eb00c53e8a68
 # ╟─d9b84bdc-bec6-4c0a-b33a-fa62334c841f
 # ╟─6bbf81a9-1fa8-4b83-8663-307ed886446a
-# ╠═fd895c02-71f1-45f4-a7c9-cd0df0af4776
+# ╟─3ecbc8ad-24fb-4282-a9d1-9ebb3eb09bce
+# ╟─fd895c02-71f1-45f4-a7c9-cd0df0af4776
+# ╟─b202bd88-2cb7-4a61-b0e1-58fe28f86694
+# ╠═0962ab0b-e3ca-486f-b730-ea705aa03989
+# ╠═970c9aaf-9204-47b0-adef-202089d05e98
+# ╟─3d6d38d4-93e2-4f0d-a835-949a215a0654
+# ╠═c1c2c611-cc62-4f0c-9ba7-66bff0be10fe
+# ╠═1197d270-506f-4366-b000-e8da15446a70
