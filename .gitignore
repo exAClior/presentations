@@ -26,4 +26,4 @@ Manifest.toml
 # Specifically for jar file for pyzx
 *.jar
 
-.CondaPkg/*
+*/.CondaPkg/*
