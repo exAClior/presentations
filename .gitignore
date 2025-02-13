@@ -25,3 +25,8 @@ Manifest.toml
 
 # Specifically for jar file for pyzx
 *.jar
+
+*/.DS_Store
+.DS_Store
+*.pdf
+*/*.pdf
