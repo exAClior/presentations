@@ -29,8 +29,8 @@ where
 - $p,q,r,s$ are spatial components of orbitals
 - $sigma, tau$ are spin components of orbitals
 - $
-		T_(p q) = integral d bold(r) phi_p^*(bold(r)) [- (hbar^2 grad^2)/(2m)] phi_q(bold(r)) 
-	$ where $phi_p(bold(r))$ is spatial orbital indexed by $p$.
+		T_(p q) = integral d bold(r) phi_p^*(bold(r)) [- (hbar^2 grad^2)/(2m)] phi_q (bold(r)) 
+	$ where $phi_p (bold(r))$ is spatial orbital indexed by $p$.
 - $V$ correspond to potential energy term.
 - $
 	 (p r | q s) = integral d bold(r) d bold(r)' phi_p^*(bold(r)) phi_r^*(bold(r)') V(bold(r)-bold(r)') phi_q (bold(r)) phi_s (bold(r)') 
@@ -68,7 +68,8 @@ where
 	- Augmented Lagrangian method improves @iii2023Variational
 		1. Memory: $cal(O)(r^4)$
 		2. Floating-points: $cal(O)(r^6)$
-	- What is current best?
+		3. Variable is $R$ where $attach(tl:2,br:r sigma s tau, tr:p sigma q tau,D) = R^* R$
+	- TODO: What is current best?
 ]
 
 #slide(title: "Performance")[
@@ -76,7 +77,7 @@ where
 	- Convergence Criteria in Hartree Energy $approx 27.2114 e V$
 		1. Orbital Gradient: $epsilon_("ograd") < 1.0 times 10^(-6) E_h$
 		2. Energy Change $epsilon_("oene") <= 1.0 times 10^(-9) E_h$
-	- Do we already know best value from other methods?
+	- TODO: Do we already know best value from other methods?
 ]
 
 #slide(title: "Limitations")[
@@ -85,4 +86,9 @@ where
 	- Pure-State N-representability
 ]
 
-#bibliography("ref.bib",style:"springer-basic-author-date")
+#slide(title: "Most Recent Work")[
+	- Electron strongly coupled with bosons @warren2024Exact
+	- Convert constraints on k-RDM to 2-RDM (How?) @mazziotti2023Quantum
+]
+
+#bibliography("ref.bib",style:"springer-basic-author-date") 
